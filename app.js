@@ -1,9 +1,9 @@
-// ===== Menú hamburguesa + dropdown "Contacto" (comportamiento correcto) =====
+// ===== Menú hamburguesa + dropdown "Contacto" + Intro + Música flotante =====
 document.addEventListener("DOMContentLoaded", () => {
+  /* ---------- NAVBAR ---------- */
   const navMenu = document.getElementById("navMenu");
   const contactToggle = document.getElementById("contactDropdown");
 
-  // Helper: cerrar todos los dropdowns visibles dentro del navbar
   const closeAllDropdowns = () => {
     document.querySelectorAll(".navbar .dropdown-menu.show").forEach((menu) => {
       const toggle = menu
@@ -15,30 +15,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Inicializa el dropdown "Contacto"
   if (contactToggle && window.bootstrap) {
     bootstrap.Dropdown.getOrCreateInstance(contactToggle, {
       autoClose: "outside",
     });
   }
 
-  // 1) Cerrar al elegir opciones del dropdown y al pulsar otros links del menú
   if (navMenu && window.bootstrap) {
     navMenu.addEventListener("click", (e) => {
       const link = e.target.closest("a");
       if (!link) return;
-
       const isDropdownToggle = link.matches('[data-bs-toggle="dropdown"]');
       const insideDropdownMenu = !!e.target.closest(".dropdown-menu");
-
-      // Si tocaste el botón del dropdown ("Contacto"), no cierres
       if (isDropdownToggle) return;
 
-      // Si tocaste una opción del dropdown (WhatsApp/Llamada):
       if (insideDropdownMenu) {
-        // cierra el dropdown de inmediato
         closeAllDropdowns();
-        // y cierra el collapse un instante después para no cortar el tap
         setTimeout(() => {
           if (navMenu.classList.contains("show")) {
             bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
@@ -46,29 +38,101 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 120);
         return;
       }
-
-      // Cualquier otro link dentro del menú: cerrar collapse de inmediato
       if (navMenu.classList.contains("show")) {
         bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
       }
     });
-
-    // 2) Si el collapse se oculta, asegúrate de cerrar también los dropdowns
     navMenu.addEventListener("hidden.bs.collapse", closeAllDropdowns);
   }
 
-  // 3) Cerrar collapse y dropdowns al hacer clic FUERA del navbar
   document.addEventListener("click", (e) => {
     const insideNavbar = e.target.closest(".navbar");
-
     if (!insideNavbar) {
-      // cierra dropdowns
       closeAllDropdowns();
-
-      // cierra collapse si está abierto
       if (navMenu && navMenu.classList.contains("show") && window.bootstrap) {
         bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
       }
     }
   });
+
+  /* ---------- INTRO (VIDEO) + MÚSICA ---------- */
+  const intro = document.getElementById("introVideo");
+  const video = document.getElementById("introPlayer");
+  const appWrap = document.getElementById("app");
+
+  const audio = document.getElementById("bgAudio");
+  const audioBtn = document.getElementById("audioToggle");
+  const audioIcon = document.getElementById("audioIcon");
+
+  const imgPlay = "./img/musica.png"; // cuando está pausado
+  const imgPause = "./img/pause.png"; // cuando está sonando
+  const audioVol = 0.18; // volumen suave
+
+  const updateAudioBtn = () => {
+    if (!audioBtn || !audioIcon) return;
+    if (audio.paused) {
+      audioBtn.classList.add("paused");
+      audioIcon.src = imgPlay;
+      audioIcon.alt = "Reproducir música";
+      audioBtn.title = "Reproducir música";
+    } else {
+      audioBtn.classList.remove("paused");
+      audioIcon.src = imgPause;
+      audioIcon.alt = "Pausar música";
+      audioBtn.title = "Pausar música";
+    }
+  };
+
+  const tryPlayAudio = async () => {
+    if (!audio) return;
+    audio.volume = audioVol;
+    try {
+      await audio.play();
+    } catch {
+      // el navegador puede bloquear autoplay
+    }
+    updateAudioBtn();
+  };
+
+  if (audioBtn && audio) {
+    audioBtn.addEventListener("click", async () => {
+      if (audio.paused) {
+        try {
+          await audio.play();
+        } catch {}
+      } else {
+        audio.pause();
+      }
+      updateAudioBtn();
+    });
+  }
+
+  // Intro video
+  if (intro && video && appWrap) {
+    document.body.classList.add("lock-scroll");
+
+    const revealApp = () => {
+      intro.style.opacity = "0";
+      setTimeout(() => {
+        intro.remove();
+        appWrap.hidden = false;
+        document.body.classList.remove("lock-scroll");
+        window.scrollTo(0, 0);
+
+        // Mostrar botón y empezar música
+        audioBtn.hidden = false;
+        tryPlayAudio();
+      }, 450);
+    };
+
+    video.addEventListener("ended", revealApp, { once: true });
+    setTimeout(revealApp, 4500);
+    setTimeout(
+      () => intro.addEventListener("click", revealApp, { once: true }),
+      1200
+    );
+  } else {
+    audioBtn.hidden = false;
+    tryPlayAudio();
+  }
 });
