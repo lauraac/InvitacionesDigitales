@@ -1,117 +1,74 @@
-// ========= Preloader =========
-window.addEventListener("load", () => {
-  // quita el preloader con una pequeña transición
-  const pre = document.getElementById("preloader");
-  if (!pre) return;
-  pre.style.opacity = "0";
-  setTimeout(() => pre.remove(), 350);
-  document.body.classList.remove("no-scroll-y");
-});
+// ===== Menú hamburguesa + dropdown "Contacto" (comportamiento correcto) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const navMenu = document.getElementById("navMenu");
+  const contactToggle = document.getElementById("contactDropdown");
 
-// ========= Texto animado con manita =========
-(function initTyped() {
-  const lines = [
-    "💌 Invita de forma especial, personaliza y sorprende.",
-    "Nuestras invitaciones digitales",
-    "son elegantes, prácticas y perfectas para cualquier evento.",
-    "✨ Fáciles de enviar • 📲 Compartibles con un clic",
-    "🎉 ¡Haz que tu evento brille!",
-  ];
-
-  const container = document.getElementById("animated-text");
-  const hand = document.querySelector(".typing-hand");
-  if (!container || !hand) return;
-
-  // Posicionamiento base de la mano
-  const setHand = (x, y) => {
-    hand.style.left = x + "px";
-    hand.style.top = y + "px";
+  // Helper: cerrar todos los dropdowns visibles dentro del navbar
+  const closeAllDropdowns = () => {
+    document.querySelectorAll(".navbar .dropdown-menu.show").forEach((menu) => {
+      const toggle = menu
+        .closest(".dropdown")
+        ?.querySelector('[data-bs-toggle="dropdown"]');
+      if (toggle && window.bootstrap) {
+        bootstrap.Dropdown.getOrCreateInstance(toggle).hide();
+      }
+    });
   };
 
-  const typeLine = (text) =>
-    new Promise((resolve) => {
-      let i = 0;
-      const p = document.createElement("p");
-      container.appendChild(p);
+  // Inicializa el dropdown "Contacto"
+  if (contactToggle && window.bootstrap) {
+    bootstrap.Dropdown.getOrCreateInstance(contactToggle, {
+      autoClose: "outside",
+    });
+  }
 
-      const tick = () => {
-        if (i < text.length) {
-          p.textContent += text.charAt(i);
-          // ubicar mano al final del párrafo
-          const rect = p.getBoundingClientRect();
-          const host = container.getBoundingClientRect();
-          setHand(
-            Math.min(rect.width + 10, host.width - 24),
-            rect.top - host.top - 8
-          );
-          i++;
-          setTimeout(tick, 26); // velocidad de tipeo
-        } else {
-          setTimeout(resolve, 300);
-        }
-      };
-      tick();
+  // 1) Cerrar al elegir opciones del dropdown y al pulsar otros links del menú
+  if (navMenu && window.bootstrap) {
+    navMenu.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+
+      const isDropdownToggle = link.matches('[data-bs-toggle="dropdown"]');
+      const insideDropdownMenu = !!e.target.closest(".dropdown-menu");
+
+      // Si tocaste el botón del dropdown ("Contacto"), no cierres
+      if (isDropdownToggle) return;
+
+      // Si tocaste una opción del dropdown (WhatsApp/Llamada):
+      if (insideDropdownMenu) {
+        // cierra el dropdown de inmediato
+        closeAllDropdowns();
+        // y cierra el collapse un instante después para no cortar el tap
+        setTimeout(() => {
+          if (navMenu.classList.contains("show")) {
+            bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
+          }
+        }, 120);
+        return;
+      }
+
+      // Cualquier otro link dentro del menú: cerrar collapse de inmediato
+      if (navMenu.classList.contains("show")) {
+        bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
+      }
     });
 
-  (async function run() {
-    for (const l of lines) {
-      await typeLine(l);
-    }
-    hand.style.display = "none";
-  })();
-})();
-
-// ========= Recarga segura del iframe al volver desde el historial =========
-window.addEventListener("pageshow", (evt) => {
-  const nav = performance.getEntriesByType("navigation")[0];
-  const cameBack = evt.persisted || (nav && nav.type === "back_forward");
-  if (cameBack) {
-    const iframe = document.getElementById("celularIframe");
-    if (iframe) iframe.src = iframe.src;
+    // 2) Si el collapse se oculta, asegúrate de cerrar también los dropdowns
+    navMenu.addEventListener("hidden.bs.collapse", closeAllDropdowns);
   }
-});
 
-// ========= Grilla “Elige tu evento” =========
-(function buildEvents() {
-  const events = [
-    { img: "./img/boda.png", name: "Boda", link: "./secciones/boda.html" },
-    { img: "./img/XV.png", name: "XV Años", link: "./secciones/quince.html" },
-    {
-      img: "./img/bautizo.png",
-      name: "Bautizo",
-      link: "./secciones/bautizo.html",
-    },
-    {
-      img: "./img/3años.png",
-      name: "Tres Años",
-      link: "./secciones/tresAnios.html",
-    },
-    {
-      img: "./img/fiesta.png",
-      name: "Eventos",
-      link: "./secciones/eventos.html",
-    },
-  ];
+  // 3) Cerrar collapse y dropdowns al hacer clic FUERA del navbar
+  document.addEventListener("click", (e) => {
+    const insideNavbar = e.target.closest(".navbar");
 
-  const grid = document.getElementById("eventGrid");
-  if (!grid) return;
+    if (!insideNavbar) {
+      // cierra dropdowns
+      closeAllDropdowns();
 
-  const frag = document.createDocumentFragment();
-
-  events.forEach((e) => {
-    const col = document.createElement("div");
-    col.className = "col-10 col-sm-6 col-md-4 col-lg-3";
-
-    col.innerHTML = `
-      <a class="card card-event h-100" href="${e.link}">
-        <img src="${e.img}" alt="${e.name}">
-        <div class="card-body">
-          <h3>${e.name}</h3>
-        </div>
-      </a>
-    `;
-    frag.appendChild(col);
+      // cierra collapse si está abierto
+      if (navMenu && navMenu.classList.contains("show") && window.bootstrap) {
+        bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
+      }
+    }
   });
-
-  grid.appendChild(frag);
-})();
+});
