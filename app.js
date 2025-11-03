@@ -66,7 +66,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const imgPlay = "./img/musica.png"; // cuando está pausado
   const imgPause = "./img/pause.png"; // cuando está sonando
-  const audioVol = 0.18; // volumen suave
+  const INITIAL_VOL = 0.06; // volumen al abrir (muy bajito)
+  const TARGET_VOL = 0.18; // volumen objetivo suave
+  const FADE_MS = 2000; // duración del fade-in en milisegundos
+  function fadeTo(target = TARGET_VOL, ms = FADE_MS) {
+    if (!audio) return;
+    const start = audio.volume;
+    const delta = target - start;
+    const t0 = performance.now();
+
+    function step(t) {
+      const k = Math.min(1, (t - t0) / ms);
+      audio.volume = Math.max(0, Math.min(1, start + delta * k));
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
 
   const updateAudioBtn = () => {
     if (!audioBtn || !audioIcon) return;
@@ -85,11 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tryPlayAudio = async () => {
     if (!audio) return;
-    audio.volume = audioVol;
+    audio.volume = INITIAL_VOL; // 👈 empieza muy bajo
     try {
-      await audio.play();
+      await audio.play(); // intenta reproducir
+      fadeTo(TARGET_VOL, FADE_MS); // 👈 sube suave
     } catch {
-      // el navegador puede bloquear autoplay
+      // Si el navegador bloquea el autoplay con sonido,
+      // el usuario tocará el botón y ahí haremos el fade también.
     }
     updateAudioBtn();
   };
@@ -98,7 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     audioBtn.addEventListener("click", async () => {
       if (audio.paused) {
         try {
+          audio.volume = INITIAL_VOL; // 👈 por si venías de pausa
           await audio.play();
+          fadeTo(TARGET_VOL, FADE_MS);
         } catch {}
       } else {
         audio.pause();
