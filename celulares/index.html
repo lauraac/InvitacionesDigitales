@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Celular con Carrusel Interactivo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="phone-scale"></div>
+  <!-- 📱 Contenedor principal con el celular -->
+  <div class="phone">
+    <!-- Carrusel -->
+    <div class="carousel">
+      <!-- Cada imagen es un botón que lleva a otra página -->
+      <a href="./boda.html" class="slide activo"><img src="./img/bautizo.png" alt="Boda" /></a>
+      <a href="./xv.html" class="slide"><img src="./img/boda.png" alt="XV Años" /></a>
+      <a href="./bautizo.html" class="slide"><img src="./img/evento.png" alt="Bautizo" /></a>
+      <a href="./tres.html" class="slide"><img src="./img/tres.png" alt="Tres Años" /></a>
+      <a href="./eventos.html" class="slide"><img src="./img/VX.png" alt="Eventos" /></a>
+
+      <!-- Botones de navegación -->
+      <button class="nav prev" aria-label="Anterior">‹</button>
+      <button class="nav next" aria-label="Siguiente">›</button>
+    </div>
+  </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

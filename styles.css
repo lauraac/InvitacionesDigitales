@@ -1,0 +1,434 @@
+/* =========================
+   Tipografías (solo si las usas)
+   ========================= */
+@font-face {
+  font-family: "Maddison";
+  src: url("/tipografiaPaga/4/Maddison.otf") format("opentype"),
+    url("/tipografiaPaga/4/Maddison.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MagicAlphabet";
+  src: url("/tipografiaPaga/5/Magic Alphabet.otf") format("opentype");
+  font-display: swap;
+}
+
+/* =========================
+   Tema y reset básico
+   ========================= */
+:root {
+  --brand: #b66a5d;
+  --bg: #ffffff;
+  --text: #3b3b3b;
+  --gold: #d4af37;
+  --debug-1: #ff6b6b; /* header/section */
+  --debug-2: #1dd1a1; /* container     */
+  --debug-3: #54a0ff; /* row           */
+  --debug-4: #feca57; /* cols          */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: #f5f7fb url("./img/inicio/fondo11.png") center/cover fixed
+    no-repeat;
+  font-family: "MagicAlphabet", system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  line-height: 1.45;
+}
+
+/* =========================
+   Utilidad de depuración (bordes)
+   Añade class="debug" al <body>
+   ========================= */
+body.debug header,
+body.debug main,
+body.debug section,
+body.debug footer {
+  outline: 2px dashed var(--debug-1);
+  outline-offset: -2px;
+}
+
+body.debug .container {
+  outline: 2px dashed var(--debug-2);
+  outline-offset: -2px;
+}
+
+body.debug .row {
+  outline: 2px dashed var(--debug-3);
+  outline-offset: -2px;
+}
+
+body.debug [class*="col-"] {
+  outline: 2px dashed var(--debug-4);
+  outline-offset: -2px;
+}
+/* =========================
+   Header / Navbar
+   ========================= */
+header {
+  margin-bottom: 10px;
+}
+
+.brand-logo {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
+.brand-frame:hover {
+  background-color: rgba(182, 106, 93, 0.08);
+  transform: scale(1.02);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8d210 !important;
+}
+
+.hero-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  text-align: center;
+  border-radius: 16px;
+}
+
+.titulo {
+  font-family: "Maddison", cursive;
+  font-weight: 400;
+  color: var(--brand);
+  margin: 0;
+}
+
+.titulo-img {
+  display: block;
+  margin: 0 auto;
+  width: 300px; /* 🔸 tamaño fijo más pequeño */
+  height: auto;
+}
+
+/* Texto animado + mano */
+.animated-text {
+  position: relative;
+  min-height: 8.5rem;
+  line-height: 1.35;
+  font-size: clamp(1.02rem, 3.5vw, 1.28rem);
+  color: var(--brand);
+  word-break: break-word;
+}
+.animated-text p {
+  margin: 0.125rem 0;
+}
+
+.typing-hand {
+  width: 42px;
+  height: auto;
+  position: absolute;
+  bottom: -6px;
+  right: -8px;
+  pointer-events: none;
+}
+
+/* =========================
+   Tarjetas “Elige tu evento”
+   ========================= */
+.card-event {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  background: #fff;
+}
+.card-event video.card-video-top {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 2px solid rgba(226, 56, 14, 0.25);
+  object-fit: cover; /* mantiene proporción */
+  border-radius: 0; /* se mantiene igual que la imagen */
+}
+
+.card-event:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+.card-event img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.card-event .card-body {
+  padding: 0.9rem 0.9rem 1.1rem;
+}
+.card-event h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 3.4vw, 1.25rem);
+  color: var(--brand);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* =========================
+   Botones
+   ========================= */
+.btn-ver-mas-outline {
+  --stroke: rgba(12, 14, 110, 0.28);
+  background: #fff;
+  color: var(--brand);
+
+  border-radius: 999px;
+  padding: 0.58rem 1.02rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+.btn-ver-mas-outline:hover,
+.btn-ver-mas-outline:focus-visible {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+.btn-ver-mas-outline i {
+  transition: transform 0.18s ease;
+}
+.btn-ver-mas-outline:hover i,
+.btn-ver-mas-outline:focus-visible i {
+  transform: translateX(2px);
+}
+
+/* =========================
+   Accesibilidad y motion
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
+  .brand-frame,
+  .card-event {
+    transition: none;
+  }
+  .card-event:hover {
+    transform: none;
+  }
+}
+
+/* =========================
+   Responsivo
+   ========================= */
+@media (min-width: 576px) {
+  .titulo-img {
+    width: 280px;
+  }
+}
+@media (min-width: 992px) {
+  header {
+    margin-bottom: 14px;
+  }
+  .animated-text {
+    font-size: 1.15rem;
+  }
+  .titulo-img {
+    width: 280px;
+  }
+}
+
+/* =========================
+   Helpers opcionales (quita cuando termines)
+   ========================= */
+/* Bordes finos para ver cajas internas sin activar el modo .debug */
+
+.eventos-section .container {
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+} /* ======== Celular sin fondo (solo el mockup) ======== */
+.phone-wrap {
+  display: inline-block;
+  position: relative;
+  width: 260px; /* tamaño del mockup */
+  margin: 0 auto;
+  background: transparent; /* sin fondo */
+  border: none; /* sin bordes */
+  box-shadow: none; /* sin sombra */
+}
+
+.phone-wrap img,
+.phone-iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none;
+  background: transparent; /* elimina fondo interno */
+}
+
+/* Si es un iframe de vista previa */
+.phone-iframe {
+  border-radius: 28px;
+  height: 520px;
+  background-color: transparent !important;
+}
+
+/* En celular (responsive) */
+@media (max-width: 576px) {
+  .phone-wrap {
+    width: 200px;
+  }
+  .phone-iframe {
+    height: 420px;
+  }
+}
+.video-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   Sección Video + Celular (ajustada para mostrar video completo)
+   ========================= */
+.video-phone-section {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.video-phone-section .media-box {
+  display: inline-block;
+  position: relative;
+  max-width: 300px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  background: #fff;
+}
+
+/* El video se adapta sin recortarse */
+.video-phone-section video.video-round {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 25px;
+  object-fit: contain; /* ✅ muestra el video completo */
+  background-color: #000; /* relleno si no llena todo el cuadro */
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 991px) {
+  .video-phone-section .media-box {
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-phone-section .media-box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .video-phone-section .media-box {
+    width: 95%;
+    border-radius: 20px;
+  }
+}
+
+.titulo-eventos {
+  width: min(280px, 90%);
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+}
+.titulo-gif {
+  width: 60px !important; /* 🔹 Forzamos el tamaño pequeño */
+  height: auto !important;
+  display: block;
+  margin: 0 auto 8px !important;
+  max-width: 60px !important; /* 🔹 Evita que crezca más */
+  object-fit: contain;
+}
+
+/* ===== Footer ===== */
+footer {
+  padding: 28px 0 60px;
+  text-align: center;
+  font-size: 14px;
+  color: #e62121;
+}
+.wa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--dorado);
+  background: #fff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.wa-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(200, 166, 81, 0.2);
+}
+footer .wa-chip i {
+  font-size: 1rem;
+}
+.icono-whats {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.wa-chip:hover .icono-whats {
+  transform: scale(1.15);
+  filter: brightness(1.5) saturate(140%);
+}
+.icono-lac {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+  filter: none !important;
+  transform: none !important;
+}
+/* Centrar logo solo en versión celular */
+@media (max-width: 767px) {
+  .navbar-brand {
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    width: 100%;
+  }
+
+  .brand-logo {
+    margin: 0 auto; /* asegura que quede centrado */
+    height: 70px; /* puedes ajustar el tamaño si lo ves pequeño */
+  }
+
+  /* Ocultar el espacio innecesario del botón del menú a la derecha */
+  .navbar-toggler {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}

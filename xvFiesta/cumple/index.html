@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./styles.css">
+  <!-- === Preview para WhatsApp / redes (Open Graph) === -->
+  <link rel="canonical" href="https://lauraac.github.io/invitaciondigital/" />
+
+  <meta property="og:url" content="https://lauraac.github.io/invitaciondigital/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Invitaciones LAC" />
+  <meta property="og:title" content="Invitación • Cumple K-Pop de Iliana" />
+  <meta property="og:description" content="14 de Febrero • 14:00 hrs • ¡Te espero! ✨" />
+
+  <!-- Imagen 1200×630 hospedada en GitHub Pages -->
+  <meta property="og:image" content="https://lauraac.github.io/invitaciondigital/img/og-iliana-2025a.jpg?v=3" />
+  <meta property="og:image:secure_url"
+    content="https://lauraac.github.io/invitaciondigital/img/og-iliana-2025a.jpg?v=3" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_MX" />
+
+  <!-- Twitter (opcional) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Invitación • Cumple K-Pop de Iliana" />
+  <meta name="twitter:description" content="14 de Febrero • 14:00 hrs • ¡Te espero! ✨" />
+  <meta name="twitter:image" content="https://lauraac.github.io/invitaciondigital/img/og-iliana-2025a.jpg?v=3" />
+
+
+  <title>Invitación • Cumple K-Pop de Iliana</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Fredoka:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div id="desktopOverlay" aria-hidden="true">
+    <div class="card">
+      <h2 class="mb-2">Esta invitación es para ver en el celular 📱</h2>
+      <p class="mb-3">
+        Para que se vea con todos sus efectos K-Pop y se lea perfecto, ábrela
+        desde tu teléfono. Si estás en la compu, escanéala con tu móvil o
+        comparte el enlace. ✨
+      </p>
+      <div class="small opacity-75">¡Gracias por entender! 💖</div>
+    </div>
+  </div>
+
+  <!-- Efectos -->
+  <div class="confetti" id="confetti"></div>
+  <div class="pretty-rain" id="prettyRain"></div>
+  <div class="music-floating" id="musicControl">
+    <i class="bi bi-play-fill" id="musicIcon"></i><span id="musicText">Música</span>
+  </div>
+  <audio id="bgMusic" preload="auto" loop>
+    <!-- Ruta directa a tu mp3 dentro de /modelosTresAños/img/ -->
+    <source id="bgMusicSource" src="./img/K-pop.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Portada -->
+  <section class="cover text-center py-4" style="position: relative">
+    <div class="container">
+      <div class="flip-frame">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="./img/10.png" alt="Foto principal de Iliana" />
+          </div>
+          <div class="flip-back">
+            <img src="./img/11.png" alt="Segunda foto de Iliana" />
+          </div>
+        </div>
+      </div>
+      <h1 class="fw-bold" style="
+            font-family: Fredoka;
+            color: #fff;
+            text-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
+          ">
+        ¡Te invito a mi fiesta! ✨
+      </h1>
+      <p class="mb-0 text-white-50">Es tiempo de festejar</p>
+    </div>
+  </section>
+
+  <!-- Cinta -->
+  <section class="py-3" style="
+        background: linear-gradient(
+          135deg,
+          rgba(255, 79, 211, 0.18),
+          rgba(64, 233, 255, 0.18)
+        );
+      ">
+    <div class="container">
+      <img class="w-100 rounded-4 shadow" src="./img/1.png" alt="Fondo K-Pop" />
+    </div>
+  </section>
+
+  <!-- Encabezado principal -->
+  <header class="hero">
+    <div class="container">
+      <div class="k-badge">
+        <i class="bi bi-stars"></i> La guerrera está de fiesta y tú eres parte
+        de la historia¡No faltes!
+      </div>
+      <h2 class="title" id="nombreTitulo">Cumple de Iliana</h2>
+      <p class="subtitle mb-1">
+        ¡Iliana <span id="edadTxt2">4</span> años!
+      </p>
+      <p id="mensajeNina" class="mb-0 fw-semibold">
+        Hola, Te invito a mi fiesta
+      </p>
+      <p class="small mb-0">
+        Tematica: K-Pop • Colores brillantes y mucha música ✨
+      </p>
+    </div>
+  </header>
+
+  <main class="container py-4 py-md-5">
+    <section class="glass info-card mx-auto p-4 p-md-5">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6">
+          <div class="col-md-6">
+            <div class="age-block">
+              <div class="age-photo">
+                <!-- 👇 pon aquí tu imagen -->
+                <img src="./img/4años.png" alt="Foto decorativa" />
+              </div>
+              <div class="pill">
+                <i class="bi bi-calendar-event me-2"></i>
+                <span id="fechaTxt">14 de Febrero</span>
+              </div>
+              <div class="pill">
+                <i class="bi bi-clock me-2"></i>
+                <span id="horaTxt">15:00 hrs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <p class="mb-0">
+              <i class="bi bi-info-circle-fill icon"></i>
+              <span id="notaTxt">Tienes una invitación, a un lugar especial</span>
+            </p>
+            <p class="mb-2">
+              <i class="bi bi-geo-alt-fill icon"></i><strong>Lugar: </strong><span id="lugarTxt">Salón K-Pop Party,
+                Calle Melodía 123, Col. Centro, Mérida,
+                Yucatán</span>
+            </p>
+          </div>
+          <div class="d-flex gap-2 mt-4 flex-wrap">
+            <a id="btnMaps" class="btn btn-k"><i class="bi bi-map me-1"></i>Abrir en Google Maps</a>
+            <a id="btnDir" class="btn btn-outline-dark fw-semibold"><i class="bi bi-sign-turn-right me-1"></i>Cómo
+              llegar</a>
+            <a id="btnRsvp" class="btn btn-outline-dark fw-semibold disabled" aria-label="Pedir informes por WhatsApp">
+              <i class="bi bi-whatsapp me-1"></i>Informes por WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row g-3">
+            <div class="col-12">
+              <img class="w-100 rounded-4 shadow fx-card reveal-up" src="./img/1.png" alt="kpop1" />
+            </div>
+            <div class="col-6">
+              <img class="w-100 rounded-4 shadow fx-card reveal-up" src="./img/8.png" alt="kpop2" />
+            </div>
+            <div class="col-6">
+              <img class="w-100 rounded-4 shadow fx-card reveal-up" src="./img/12.png" alt="kpop3" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa en vivo -->
+    <section id="liveMap" class="mx-auto mt-4" style="max-width: 980px">
+      <div class="glass p-3 p-md-4">
+        <h2 class="h4 fw-bold mb-3">
+          <i class="bi bi-geo-alt me-1"></i> Ubicación
+        </h2>
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden">
+          <iframe id="liveMapEmbed" src="" style="border: 0" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuenta regresiva -->
+    <section id="countdown" class="mx-auto mt-4" style="max-width: 900px">
+      <div class="glass p-3 p-md-4 text-center">
+        <h2 class="h4 fw-bold mb-3">
+          <i class="bi bi-hourglass-split me-1"></i> Cuenta regresiva
+        </h2>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <div class="pill px-3 py-2">
+            <div id="cd-days" class="h2 fw-bold mb-0">00</div>
+            <div class="label-chip">Días</div>
+          </div>
+          <div class="pill px-3 py-2">
+            <div id="cd-hours" class="h2 fw-bold mb-0">00</div>
+            <div class="label-chip">Horas</div>
+          </div>
+          <div class="pill px-3 py-2">
+            <div id="cd-mins" class="h2 fw-bold mb-0">00</div>
+            <div class="label-chip">Min</div>
+          </div>
+          <div class="pill px-3 py-2">
+            <div id="cd-secs" class="h2 fw-bold mb-0">00</div>
+            <div class="label-chip">Seg</div>
+          </div>
+        </div>
+        <div class="small text-muted mt-2">
+          ¡Nos vemos el <span id="fechaResumen">14 de Febrero</span> a las
+          <span id="horaResumen">15:00</span>! 💫
+        </div>
+      </div>
+    </section>
+
+    <!-- Post-evento -->
+    <section id="postEvent" class="mx-auto mt-4" style="max-width: 900px; display: none">
+      <div class="glass p-3 p-md-4 text-center">
+        <h2 class="h4 fw-bold mb-2">
+          <i class="bi bi-balloon-heart me-1"></i> La fiesta ya concluyó
+        </h2>
+        <p class="mb-3">
+          ¡Gracias por acompañarnos y hacer especial el cumple de Iliana! 💖
+        </p>
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden mb-3">
+          <iframe id="postMapEmbed" src="" style="border: 0" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <a id="btnMapsPost" class="btn btn-k"><i class="bi bi-map me-1"></i>Abrir en Google Maps</a>
+          <a id="btnDirPost" class="btn btn-outline-dark fw-semibold"><i class="bi bi-sign-turn-right me-1"></i>Cómo
+            llegar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container text-center py-4">
+    <small class="d-block mb-2">
+      © 2025 • Hecho por
+      <img src="../cumple/img/girasol.png" alt="LAC logo" class="icono-lac">
+      <strong>LAC</strong> — Invitaciones digitales
+    </small>
+
+    <!-- Chip discreto de WhatsApp -->
+    <a href="https://wa.me/525534633490?text=Hola%20Laura,%20me%20gustaría%20saber%20más%20sobre%20las%20tarjetas%20digitales."
+      target="_blank" rel="noopener noreferrer" class="wa-chip">
+      <img src="./img/whats.png" alt="WhatsApp" class="icono-whats">
+      Pide La tuya
+    </a>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    /* ========= CONFIG (sin editor visual) ========= */
+    const CONFIG = {
+      nombre: "Iliana",
+      coords: { lat: 19.4901695, lng: -99.2264938 },
+      edad: 4,
+      fechaTxt: "14 de Febrero",
+      horaTxt: "14:00 hrs",
+      lugar: "CDMX",
+      mapsUrl:
+        "https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3427443,-99.0098025,3071m/data=!3m2!1e3!4b1!4m6!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D",
+      whatsapp: "525534633490",
+      musicUrl: "./img/K-pop.mp3",
+      volume: 20, // 0–100 (limitado a 30%)
+      nota: "Tienes una invitación, a un lugar especial",
+      mensaje: "Hola, Te invito a mi fiesta",
+      // 8 nov 2025, 15:00
+      target: new Date(2025, 10, 8, 14, 0),
+    };
+
+    /* ===== Helpers seguros (no rompen si falta el elemento) ===== */
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, txt) => {
+      const el = $(id);
+      if (el) el.textContent = txt;
+    };
+    const setAttr = (el, obj) => {
+      if (!el) return;
+      Object.entries(obj).forEach(([k, v]) => el.setAttribute(k, v));
+    };
+
+    /* ========= Render base ========= */
+    function renderStatic() {
+      setText("nombreTitulo", "Cumple de " + CONFIG.nombre);
+      // Estas dos pueden NO existir en tu HTML; por eso no deben romper:
+      setText("edadTxt", CONFIG.edad);
+      setText("edadTxt2", CONFIG.edad);
+      setText("fechaTxt", CONFIG.fechaTxt);
+      setText("horaTxt", CONFIG.horaTxt);
+      setText("fechaResumen", CONFIG.fechaTxt);
+      setText(
+        "horaResumen",
+        CONFIG.horaTxt.replace(" hrs", "").replace("hrs", "")
+      );
+      setText("lugarTxt", CONFIG.lugar || "—");
+      setText("mensajeNina", CONFIG.mensaje);
+      // Puede no existir:
+      setText("notaTxt", CONFIG.nota);
+
+      // ----- Google Maps (embed + enlaces) -----
+      const hasCoords =
+        CONFIG.coords &&
+        typeof CONFIG.coords.lat === "number" &&
+        typeof CONFIG.coords.lng === "number";
+      const place = (CONFIG.lugar || "").trim();
+
+      const q = hasCoords
+        ? `${CONFIG.coords.lat},${CONFIG.coords.lng}`
+        : encodeURIComponent(
+          place || "Naucalpan de Juárez, Estado de México"
+        );
+
+      // ----- Google Maps (embed + enlaces) -----
+      // SIEMPRE usar la misma ubicación (Parroquia de Corpus Christi)
+      const MAP_URL = "https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3427443,-99.0098025,3071m/data=!3m2!1e3!4b1!4m6!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D";
+      const MAP_EMBED = "https://www.google.com/maps?q=19.3427452,-98.9913485&z=17&output=embed";
+      const MAP_DIR = "https://www.google.com/maps/dir/?api=1&destination=19.3427452,-98.9913485";
+
+      // Embeds (en vivo y post)
+      const liveMap = $("liveMapEmbed");
+      if (liveMap) liveMap.src = MAP_EMBED;
+
+      const postMap = $("postMapEmbed");
+      if (postMap) postMap.src = MAP_EMBED;
+
+      // Botones principales
+      const btnMaps = $("btnMaps");
+      const btnDir = $("btnDir");
+      if (btnMaps) {
+        btnMaps.href = MAP_URL;
+        setAttr(btnMaps, { target: "_blank", rel: "noopener" });
+      }
+      if (btnDir) {
+        btnDir.href = MAP_DIR;
+        setAttr(btnDir, { target: "_blank", rel: "noopener" });
+      }
+
+      // Botones post-evento
+      const btnMapsPost = $("btnMapsPost");
+      const btnDirPost = $("btnDirPost");
+      if (btnMapsPost) {
+        btnMapsPost.href = MAP_URL;
+        setAttr(btnMapsPost, { target: "_blank", rel: "noopener" });
+      }
+      if (btnDirPost) {
+        btnDirPost.href = MAP_DIR;
+        setAttr(btnDirPost, { target: "_blank", rel: "noopener" });
+      }
+
+
+      // ----- WhatsApp (informes) -----
+      const btnRsvp = $("btnRsvp");
+      if (btnRsvp) {
+        if (CONFIG.whatsapp) {
+          const numero = CONFIG.whatsapp.replace(/\D/g, "");
+          const msg = `Hola, ¿me puedes dar informes o cómo llegar al evento de ${CONFIG.nombre}?`;
+          btnRsvp.href =
+            "https://wa.me/" + numero + "?text=" + encodeURIComponent(msg);
+          setAttr(btnRsvp, { target: "_blank" });
+          btnRsvp.classList.remove("disabled");
+          btnRsvp.setAttribute(
+            "aria-label",
+            "Abrir chat de WhatsApp para pedir informes"
+          );
+        } else {
+          btnRsvp.href = "#";
+          btnRsvp.removeAttribute("target");
+          btnRsvp.classList.add("disabled");
+        }
+      }
+    }
+
+    // ----- Confetti -----
+    const confettiEl = $("confetti");
+    const colors = [
+      "#ffffff",
+      "#ffe1fb",
+      "#d8d8ff",
+      "#c4fbff",
+      "#ffd3e8",
+      "#e7e2ff",
+    ];
+    function makeSpark() {
+      if (!confettiEl) return;
+      const s = document.createElement("div");
+      s.className = "spark";
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.top = "-10vh";
+      s.style.background = colors[Math.floor(Math.random() * colors.length)];
+      s.style.transform =
+        "translateY(0) rotate(" + Math.random() * 180 + "deg)";
+      s.style.animationDuration = 3 + Math.random() * 3 + "s";
+      confettiEl.appendChild(s);
+      setTimeout(() => s.remove(), 6500);
+    }
+    setInterval(makeSpark, 180);
+
+    // ----- Globitos -----
+    const pretty = $("prettyRain");
+    const pastel = [
+      "#ffe1fb",
+      "#e5e4ff",
+      "#dff8ff",
+      "#ffd8e8",
+      "#e7f7ff",
+      "#fff",
+    ];
+    function spawnDrop() {
+      if (!pretty) return;
+      const d = document.createElement("div");
+      d.className = "drop " + (Math.random() < 0.6 ? "balloon" : "");
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.top = "-10vh";
+      if (d.classList.contains("balloon")) {
+        d.style.setProperty(
+          "--col",
+          pastel[Math.floor(Math.random() * pastel.length)]
+        );
+      }
+      d.style.setProperty("--dx", Math.random() * 20 - 10 + "vw");
+      d.style.setProperty("--rot", Math.random() * 120 - 60 + "deg");
+      d.style.animation = "floatDown " + (6 + Math.random() * 4) + "s linear forwards";
+
+      pretty.appendChild(d);
+      setTimeout(() => d.remove(), 10000);
+    }
+    setInterval(spawnDrop, 320);
+
+    // ----- Cuenta regresiva -----
+    function setCdValue(id, v) {
+      const el = $(id);
+      if (el) el.textContent = String(v).padStart(2, "0");
+    }
+    function tick() {
+      const now = new Date();
+      let diff = CONFIG.target.getTime() - now.getTime();
+      const passed = diff <= 0;
+      if (passed) diff = 0;
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+
+      setCdValue("cd-days", days);
+      setCdValue("cd-hours", hours);
+      setCdValue("cd-mins", mins);
+      setCdValue("cd-secs", secs);
+
+      if (passed) {
+        const countdownEl = $("countdown");
+        const postEl = $("postEvent");
+        if (countdownEl) countdownEl.style.display = "none";
+        if (postEl) {
+          postEl.style.display = "block";
+          const h2 = postEl.querySelector("h2");
+          const p = postEl.querySelector("p");
+          if (h2)
+            h2.innerHTML =
+              '<i class="bi bi-balloon-heart me-1"></i> La invitación expiró';
+          if (p) p.textContent = "¡Gracias por asistir a mi fiesta! 💖";
+        }
+      }
+    }
+
+    // ----- Música -----
+    const audio = $("bgMusic");
+    const musicCtrl = $("musicControl");
+    const musicIcon = $("musicIcon");
+    const musicText = $("musicText");
+
+    function applyMusic() {
+      if (!audio || !musicCtrl || !musicIcon || !musicText) return;
+      const url = (CONFIG.musicUrl || "").trim();
+      if (!url) {
+        musicCtrl.style.display = "none";
+        return;
+      }
+      // Resuelve ruta relativa según dónde esté el HTML
+      const resolved = new URL(url, location.href).href;
+
+      // Aplica ruta al <audio>
+      const srcEl = $("bgMusicSource");
+      if (srcEl) srcEl.src = resolved;
+      audio.src = resolved;
+      audio.load();
+
+      // Volumen (máx 0.3 por autoplay)
+      const vol =
+        Math.max(0, Math.min(100, Number(CONFIG.volume || 20))) / 100;
+      audio.volume = Math.min(vol, 0.3);
+
+      audio.addEventListener(
+        "error",
+        () => {
+          console.error(
+            "Error cargando audio:",
+            audio.error,
+            "URL:",
+            resolved
+          );
+        },
+        { once: true }
+      );
+    }
+    /* Reveal al entrar en pantalla con pequeño “stagger” */
+    (function initRevealUp() {
+      const items = Array.from(document.querySelectorAll(".reveal-up"));
+      if (!items.length || !("IntersectionObserver" in window)) {
+        // Si no hay soporte, muéstralas sin animación
+        items.forEach((el) => el.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              // pequeño retraso escalonado según su posición en la lista
+              const idx = items.indexOf(e.target);
+              e.target.style.transitionDelay = (idx % 3) * 80 + "ms";
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      items.forEach((el) => io.observe(el));
+    })();
+
+    function toggleMusic() {
+      if (!audio || !musicIcon || !musicText) return;
+      if (audio.paused) {
+        audio
+          .play()
+          .then(() => {
+            musicIcon.classList.replace("bi-play-fill", "bi-pause-fill");
+            musicText.textContent = "Pausar";
+          })
+          .catch(() => { });
+      } else {
+        audio.pause();
+        musicIcon.classList.replace("bi-pause-fill", "bi-play-fill");
+        musicText.textContent = "Música";
+      }
+    }
+
+    if (musicCtrl) {
+      musicCtrl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMusic();
+      });
+    }
+    /* --- Auto-flip cada 7s con pausa por interacción --- */
+    let flipTimer = null;
+    const flipEl = document.querySelector(".flip-inner");
+
+    function startAutoFlip() {
+      if (!flipEl) return;
+      stopAutoFlip(); // evita timers duplicados
+      flipTimer = setInterval(() => {
+        flipEl.classList.toggle("is-flipped");
+      }, 7000); // 7 segundos
+    }
+
+    function stopAutoFlip() {
+      if (flipTimer) {
+        clearInterval(flipTimer);
+        flipTimer = null;
+      }
+    }
+
+    // Pausa auto-flip si el usuario interactúa; reanuda al salir
+    if (flipEl) {
+      flipEl.addEventListener("mouseenter", stopAutoFlip);
+      flipEl.addEventListener("mouseleave", startAutoFlip);
+      // En móviles: tocar alterna y también pausa 2s para no pelear con el auto
+      flipEl.addEventListener(
+        "touchstart",
+        () => {
+          flipEl.classList.toggle("is-flipped");
+          stopAutoFlip();
+          setTimeout(startAutoFlip, 2000);
+        },
+        { passive: true }
+      );
+    }
+
+    // Requerido por navegadores móviles: reproducir tras primer toque
+    document.addEventListener(
+      "pointerdown",
+      function once() {
+        if (audio && CONFIG.musicUrl) {
+          audio
+            .play()
+            .then(() => {
+              if (musicIcon && musicText) {
+                musicIcon.classList.replace("bi-play-fill", "bi-pause-fill");
+                musicText.textContent = "Pausar";
+              }
+            })
+            .catch(() => { });
+        }
+        document.removeEventListener("pointerdown", once);
+      },
+      { once: true }
+    );
+    /* Hover táctil para .fx-card (móviles) */
+    (function addTouchHover(selector = ".fx-card") {
+      const els = Array.from(document.querySelectorAll(selector));
+      if (!els.length) return;
+
+      els.forEach((el) => {
+        let touchTimer = null;
+
+        el.addEventListener(
+          "touchstart",
+          () => {
+            el.classList.add("is-hover");
+            // si mantiene el dedo, que siga “pop”; si fue tap rápido, se quita al final
+          },
+          { passive: true }
+        );
+
+        el.addEventListener("touchend", () => {
+          // quita el “pop” un poquito después para que se note
+          clearTimeout(touchTimer);
+          touchTimer = setTimeout(() => el.classList.remove("is-hover"), 150);
+        });
+
+        el.addEventListener("touchcancel", () => {
+          el.classList.remove("is-hover");
+        });
+      });
+    })();
+
+    // ===== Init (en orden) =====
+    renderStatic(); // ← ya no truena si faltan ids
+    applyMusic();
+    startAutoFlip();
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+
+</html>
