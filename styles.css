@@ -555,3 +555,115 @@ body.lock-scroll {
     bottom: 76px;
   }
 }
+/* ===== Aviso de solo móvil (escritorio) ===== */
+.desktop-notice {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* 💖 Fondo con degradado azul y rosita */
+  background: radial-gradient(
+      circle at top right,
+      rgba(255, 182, 193, 0.7),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(173, 216, 230, 0.7),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #b3e5fc 0%, #f8bbd0 100%);
+  z-index: 9999;
+  padding: 24px;
+  animation: bgMove 12s ease-in-out infinite alternate;
+}
+
+/* 🌈 Suave animación del fondo para darle vida */
+@keyframes bgMove {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: bottom right;
+  }
+}
+
+.dn-card {
+  width: min(520px, 92vw);
+  /* 💎 Fondo degradado azul-rosita con transparencia */
+  background: linear-gradient(
+    135deg,
+    rgba(173, 216, 230, 0.85) 0%,
+    /* azul claro */ rgba(11, 8, 212, 0.85) 100% /* rosa pastel */
+  );
+  color: #fff;
+  border-radius: 20px;
+  padding: 28px 22px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  animation: cardShine 10s ease-in-out infinite alternate;
+}
+
+/* ✨ animación sutil de brillo en el degradado */
+@keyframes cardShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.dn-icon {
+  width: 64px;
+  height: 64px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.dn-text {
+  margin: 8px 0 14px;
+  line-height: 1.45;
+  font-size: 1.05rem;
+}
+
+.dn-qr-wrap {
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  margin: 10px 0 14px;
+}
+
+.dn-qr-wrap img {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px;
+}
+
+.dn-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Fallback por CSS: si la pantalla es ancha, mostramos el aviso y ocultamos la app */
+@media (min-width: 992px) {
+  #desktopNotice[hidden] {
+    display: grid !important;
+  }
+  #app {
+    display: none !important;
+  }
+}
+.dn-qr-wrap a {
+  color: #fff;
+  text-decoration: underline;
+}
+.dn-qr-wrap a:hover {
+  opacity: 0.8;
+}

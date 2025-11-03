@@ -26,6 +26,32 @@
 </head>
 
 <body>
+  <!-- Aviso para escritorio -->
+  <div id="desktopNotice" class="desktop-notice" hidden aria-live="polite">
+    <div class="dn-card">
+      <img src="./img/uri.png" alt="" class="dn-icon" aria-hidden="true">
+      <h2>¡Hola! 👋</h2>
+      <p class="dn-text">
+        Nuestras invitaciones están <strong>diseñadas para verse en celular</strong>.
+        Te invitamos a abrir este enlace en tu teléfono ✨
+      </p>
+
+      <div class="dn-qr-wrap">
+        <img id="dnQr" alt="Escanea este código para abrir en tu celular">
+        <small>Escanéalo con la cámara de tu celular</small>
+      </div>
+
+      <div class="dn-actions">
+        <button id="dnCopy" class="btn btn-light btn-sm">
+          Copiar enlace
+        </button>
+        <a id="dnWhats" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener">
+          Enviarme por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="intro-video" id="introVideo" aria-hidden="true">
     <video id="introPlayer" autoplay muted playsinline webkit-playsinline preload="auto">
       <source src="./img/bebe.mp4" type="video/mp4">

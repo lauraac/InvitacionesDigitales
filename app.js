@@ -155,3 +155,98 @@ document.addEventListener("DOMContentLoaded", () => {
     tryPlayAudio();
   }
 });
+
+(function () {
+  const notice = document.getElementById("desktopNotice");
+  const app = document.getElementById("app");
+  const qr = document.getElementById("dnQr");
+  const copyBtn = document.getElementById("dnCopy");
+  const waBtn = document.getElementById("dnWhats");
+
+  // ✅ Usa tu URL publicada (fija y sin dudas)
+  const url = "https://lauraac.github.io/InvitacionesDigitales/";
+
+  // ===== QR con fallback =====
+  // 1) Primer servicio
+  const primaryQR =
+    "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=";
+  // 2) Segundo servicio (fallback)
+  const fallbackQR =
+    "https://chart.googleapis.com/chart?cht=qr&chs=220x220&chl=";
+
+  function setQR(srcBase) {
+    if (!qr) return;
+    // cache-buster para evitar que el navegador se quede con una imagen vieja
+    qr.src = srcBase + encodeURIComponent(url) + "&t=" + Date.now();
+  }
+
+  if (qr) {
+    setQR(primaryQR);
+    // Si el primero falla, usamos el segundo
+    qr.onerror = function () {
+      setQR(fallbackQR);
+    };
+    // Accesible: muestra la URL como tooltip
+    qr.title = url;
+  }
+
+  // WhatsApp con la URL
+  if (waBtn) {
+    const msg = "Hola, ábrelo en mi celular: " + url;
+    waBtn.href = "https://wa.me/?text=" + encodeURIComponent(msg);
+  }
+
+  // Copiar enlace
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = "¡Copiado!";
+        setTimeout(() => (copyBtn.textContent = "Copiar enlace"), 1600);
+      } catch (e) {
+        alert("Copia manual: " + url);
+      }
+    });
+  }
+
+  // Agrega el enlace debajo del QR para abrir/copy fácil
+  // (si quieres, ya tienes estilos en CSS; si no, se ve simple y bien)
+  const qrWrap = document.querySelector(".dn-qr-wrap");
+  if (qrWrap) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = url.replace("https://", "");
+    link.style.wordBreak = "break-all";
+    link.style.fontSize = "0.9rem";
+    link.style.opacity = "0.9";
+    qrWrap.appendChild(link);
+  }
+
+  // Detección: móvil vs escritorio
+  const isUA_Mobile = /Mobi|Android|iPhone|iPad|iPod/i.test(
+    navigator.userAgent
+  );
+  const isSmallViewport = matchMedia("(max-width: 768px)").matches;
+  const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const isMobile = isUA_Mobile || (isSmallViewport && hasTouch);
+
+  if (!isMobile) {
+    if (notice) notice.hidden = false;
+    if (app) app.hidden = true;
+  } else {
+    if (notice) notice.hidden = true;
+    // #app lo muestra tu intro cuando termina
+  }
+
+  window.addEventListener("resize", () => {
+    const wide = matchMedia("(min-width: 992px)").matches;
+    if (wide) {
+      if (notice) notice.hidden = false;
+      if (app) app.hidden = true;
+    } else if (isUA_Mobile || hasTouch) {
+      if (notice) notice.hidden = true;
+    }
+  });
+})();
