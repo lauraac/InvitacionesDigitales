@@ -449,3 +449,103 @@ function waitForMetadata(audio) {
     icons.forEach((el) => el.classList.add("is-on")); // sin animación
   }
 })();
+
+// ==== Modal de Google Maps / Waze (Recepción + Ceremonia) ====
+(function () {
+  const modal = document.getElementById("mapModal");
+  const btnRecepcion = document.getElementById("btnMapaRecepcion");
+  const btnCeremonia = document.getElementById("btnMapaCeremonia");
+
+  const btnClose = document.getElementById("mapModalClose");
+  const backdrop = document.getElementById("mapModalBackdrop");
+  const btnMaps = document.getElementById("mapModalMaps");
+  const btnWaze = document.getElementById("mapModalWaze");
+
+  if (!modal || !btnMaps || !btnWaze) return;
+
+  const openModal = () => modal.classList.add("is-open");
+  const closeModal = () => modal.classList.remove("is-open");
+
+  btnClose?.addEventListener("click", closeModal);
+  backdrop?.addEventListener("click", closeModal);
+
+  // función que configura los links según de dónde venga (recepción / ceremonia)
+  function configurarLinks(tipo) {
+    if (tipo === "recepcion") {
+      // 👉 GOOGLE MAPS: usa exactamente el link que tienes en WhatsApp
+      btnMaps.onclick = () => {
+        window.open(
+          "https://maps.app.goo.gl/LUXP5rXH8cxzmnhCA?g_st=aw",
+          "_blank"
+        );
+        closeModal();
+      };
+
+      // 👉 WAZE: búsqueda directa del salón con navegación
+      btnWaze.onclick = () => {
+        const wazeUrl =
+          "https://waze.com/ul?q=" +
+          encodeURIComponent(
+            "Salones Palazzio Videmar, Manuel González 71, Ex Hipódromo de Peralvillo, Cuauhtémoc, Ciudad de México, CDMX"
+          ) +
+          "&navigate=yes";
+
+        window.open(wazeUrl, "_blank");
+        closeModal();
+      };
+    }
+
+    if (tipo === "ceremonia") {
+      // 👉 GOOGLE MAPS (tu link exacto)
+      btnMaps.onclick = () => {
+        window.open("https://maps.app.goo.gl/dMMmgYUSe3YkB8MQ6", "_blank");
+        closeModal();
+      };
+
+      // 👉 WAZE (búsqueda por nombre/dirección)
+      btnWaze.onclick = () => {
+        const wazeUrl =
+          "https://waze.com/ul?q=" +
+          encodeURIComponent(
+            "Parroquia de María Auxiliadora, Colegio Salesiano #61, Anáhuac I Secc, Miguel Hidalgo, CDMX"
+          ) +
+          "&navigate=yes";
+
+        window.open(wazeUrl, "_blank");
+        closeModal();
+      };
+    }
+  }
+
+  // botón Recepción
+  if (btnRecepcion) {
+    btnRecepcion.addEventListener("click", () => {
+      configurarLinks("recepcion");
+      openModal();
+    });
+  }
+
+  // botón Ceremonia
+  if (btnCeremonia) {
+    btnCeremonia.addEventListener("click", () => {
+      configurarLinks("ceremonia");
+      openModal();
+    });
+  }
+})();
+// ==== Modal: ¿Hasta qué hora es la fiesta? ====
+(function () {
+  const modal = document.getElementById("horaModal");
+  const btnOpen = document.getElementById("btnHoraFiesta"); // este botón lo creamos abajo
+  const btnClose = document.getElementById("horaModalClose");
+  const backdrop = document.getElementById("horaModalBackdrop");
+
+  if (!modal || !btnOpen) return;
+
+  const openModal = () => modal.classList.add("is-open");
+  const closeModal = () => modal.classList.remove("is-open");
+
+  btnOpen.addEventListener("click", openModal);
+  btnClose.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", closeModal);
+})();

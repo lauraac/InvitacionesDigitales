@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mural de recuerdos</title>
+
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --wall: #f0e2cf;
+      --frame: #ffffff;
+      --accent: #c89a55;
+      --ink: #2f2520;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--ink);
+    }
+
+    .mural-wrap {
+      min-height: 100vh;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+      text-align: center;
+    }
+
+    .mural-title {
+      font-family: "Great Vibes", cursive;
+      font-size: 2.4rem;
+      margin-bottom: 4px;
+    }
+
+    .mural-sub {
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .mural-actions {
+      margin-bottom: 18px;
+    }
+
+    .btn-camara {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-camara span {
+      font-size: 1.2rem;
+    }
+
+    .btn-camara:active {
+      transform: scale(0.97);
+    }
+
+    .mural-msg {
+      min-height: 18px;
+      font-size: 0.8rem;
+      margin-top: 6px;
+    }
+
+    /* Pared / mural */
+    .mural-wall {
+      margin-top: 18px;
+    }
+
+    .mural-frame {
+      background: radial-gradient(circle at top, #f9efe0, var(--wall));
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+
+    .mural-frame::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 18px;
+      background: #d9c09d;
+      border-radius: 10px;
+      box-shadow: 0 7px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .mural-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 12px 0 8px;
+    }
+
+    .mural-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .mural-item {
+      background: var(--frame);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+
+    .mural-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* un poco de “desorden bonito” */
+    .mural-item:nth-child(2n) {
+      transform: rotate(-1.5deg);
+    }
+
+    .mural-item:nth-child(3n) {
+      transform: rotate(1.2deg);
+    }
+
+    .mural-empty {
+      font-size: 0.8rem;
+      color: #5f564e;
+      margin: 12px 0 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="mural-wrap">
+    <h1 class="mural-title">Mural de recuerdos</h1>
+    <p class="mural-sub">
+      Toca la cámara para tomar una foto o elegirla de tu galería.
+      Se irá pegando aquí en nuestro muro 📷💞
+    </p>
+
+    <section class="mural-actions">
+
+      <!-- Cámara -->
+      <input type="file" id="archivoCamara" accept="image/*" capture="environment" hidden />
+
+      <!-- Galería -->
+      <input type="file" id="archivoGaleria" accept="image/*" multiple hidden />
+
+      <button id="btnCamara" class="btn-camara">
+        📷 Tomar foto
+      </button>
+
+      <button id="btnGaleria" class="btn-camara" style="margin-top:10px;">
+        🖼️ Subir desde galería
+      </button>
+
+      <div id="estado" class="mural-msg"></div>
+    </section>
+
+
+    <section class="mural-wall">
+      <div class="mural-frame">
+        <p class="mural-label">Fotos del evento</p>
+        <div id="galeriaGrid" class="mural-grid"></div>
+        <p id="galeriaEmpty" class="mural-empty" hidden>
+          Aún no hay fotos pegadas en el muro. ¡Sé el primero en subir una! ✨
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyCcB-VROGFaE-_rN1OwLnKRqFuWCmLJjO2UOvx9lgaqwPssZyYauYOioCSToWHM26ESw/exec";
+
+    const camaraBtn = document.getElementById("btnCamara");
+    const galeriaBtn = document.getElementById("btnGaleria");
+
+    const inputCamara = document.getElementById("archivoCamara");
+    const inputGaleria = document.getElementById("archivoGaleria");
+
+    const estado = document.getElementById("estado");
+    const grid = document.getElementById("galeriaGrid");
+    const emptyMsg = document.getElementById("galeriaEmpty");
+
+    // Abrir cámara
+    camaraBtn.addEventListener("click", () => {
+      inputCamara.click();
+    });
+
+    // Abrir galería
+    galeriaBtn.addEventListener("click", () => {
+      inputGaleria.click();
+    });
+
+    // Cuando la cámara toma foto
+    inputCamara.addEventListener("change", () => {
+      if (!inputCamara.files.length) return;
+      subirFotos(inputCamara.files);
+    });
+
+    // Cuando se eligen fotos de galería
+    inputGaleria.addEventListener("change", () => {
+      if (!inputGaleria.files.length) return;
+      subirFotos(inputGaleria.files);
+    });
+
+    async function subirFotos(files) {
+      const file = files[0];
+      if (!file) return;
+
+      estado.textContent = "Subiendo foto...";
+
+      const reader = new FileReader();
+
+      reader.onloadend = async () => {
+        try {
+          const base64 = reader.result.split(",")[1];
+
+          const payload = {
+            image: base64,
+            name: file.name,
+          };
+
+          const resp = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await resp.json();
+          estado.textContent = data.message || "¡Foto subida al mural! 🥰";
+
+          cargarGaleria();
+        } catch (err) {
+          console.error(err);
+          estado.textContent = "Error al subir la foto 😔 intenta de nuevo.";
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+
+    async function cargarGaleria() {
+      const resp = await fetch(API_URL);
+      const data = await resp.json();
+
+      grid.innerHTML = "";
+
+      if (!data.ok || !data.files || data.files.length === 0) {
+        emptyMsg.hidden = false;
+        return;
+      }
+
+      emptyMsg.hidden = true;
+
+      data.files.forEach((f) => {
+        const div = document.createElement("div");
+        div.className = "mural-item";
+
+        const img = document.createElement("img");
+        img.src = f.url;
+        img.alt = f.name;
+
+        div.appendChild(img);
+        grid.appendChild(div);
+      });
+    }
+
+    cargarGaleria();
+  </script>
+
+
+
+</body>
+
+</html>
