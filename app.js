@@ -250,3 +250,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 })();
+
+// ===== Lluvia de angelitos 👼 =====
+(function () {
+  // Crea el contenedor de la lluvia
+  const rainLayer = document.createElement("div");
+  rainLayer.className = "angel-rain";
+  document.body.appendChild(rainLayer);
+
+  // Cambia esta ruta por tu GIF real del angelito
+  const ANGEL_SRC = "./img/inicio/URIimg.gif";
+
+  function createAngel() {
+    const angel = document.createElement("img");
+    angel.src = ANGEL_SRC;
+    angel.alt = "Angelito";
+    angel.className = "angelito";
+
+    // Tamaño aleatorio (pequeños y medianos)
+    const size = 40 + Math.random() * 40; // 40px a 80px
+    angel.style.width = size + "px";
+
+    // Posición horizontal aleatoria
+    const left = Math.random() * 100; // 0 a 100 vw
+    angel.style.left = left + "vw";
+
+    // Duración de la caída
+    const duration = 12 + Math.random() * 8; // 12s a 20s
+    angel.style.animationDuration = duration + "s";
+
+    // Pequeño delay para que no caigan todas iguales
+    const delay = Math.random() * 3; // 0 a 3s
+    angel.style.animationDelay = delay + "s";
+
+    rainLayer.appendChild(angel);
+
+    // Eliminar el angelito después de la animación
+    setTimeout(() => {
+      angel.remove();
+    }, (duration + delay) * 1000);
+  }
+
+  // Crear unos cuantos al inicio
+  // Crear SOLO 1 angelito al inicio
+  for (let i = 0; i < 1; i++) {
+    createAngel();
+  }
+
+  // Seguir creando angelitos cada cierto tiempo
+  setInterval(createAngel, 1500);
+})();

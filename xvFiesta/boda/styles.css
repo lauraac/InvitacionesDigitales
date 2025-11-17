@@ -1,0 +1,1162 @@
+/* ============ Base móvil (iPhone/Android) ============ */
+:root {
+  --paper: #f7f7f7;
+  --ink: #121212;
+  --line: #e3e3e3;
+  --soft: #fbfbfb;
+  --max: 720px;
+  --shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Merriweather", serif;
+  -webkit-font-smoothing: antialiased;
+}
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+/* ---------- Titulares caligrafía ---------- */
+.gv-title {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  text-align: center;
+  color: var(--ink);
+  display: inline-block;
+  background: #fff;
+  padding: 0 10px;
+  border-radius: 6px;
+}
+.phrase-text {
+  font-size: clamp(28px, 9vw, 56px);
+}
+.history-title-text {
+  font-size: clamp(28px, 8vw, 52px);
+}
+.prog-title-text {
+  font-size: clamp(26px, 7.5vw, 46px);
+}
+.info-title-text,
+.wm-title-text {
+  font-size: clamp(20px, 6vw, 32px);
+}
+.counter-title-text {
+  font-size: clamp(24px, 7.5vw, 48px);
+}
+
+/* ---------- Helpers ---------- */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px;
+}
+.section {
+  margin: 22px 0;
+}
+.center {
+  text-align: center;
+}
+
+/* ---------- Portada ---------- */
+.masthead {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  border: 1px solid #eee;
+}
+.news-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  background: #fff;
+  position: relative;
+  border-top: 1px solid #000;
+  border-bottom: 2px solid #000;
+  gap: 8px;
+}
+.news-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: #000;
+}
+.news-cell {
+  padding: 8px 10px;
+  font-size: clamp(12px, 2.6vw, 14px);
+  text-align: center;
+}
+.news-cell + .news-cell {
+  border-left: 1px solid #000;
+}
+.news-cell.left {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+.news-cell.right {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-align: right;
+}
+.news-banner {
+  max-width: 260px;
+  margin: 0 auto;
+}
+.headline-img {
+  width: 100%;
+  margin: 10px 0 0;
+}
+.headline-lines {
+  border-bottom: 2px solid #000;
+  position: relative;
+  margin-top: 4px;
+}
+.headline-lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: #000;
+}
+
+/* Fecha centrada y adaptable */
+.news-date {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+  text-align: center;
+}
+.news-date strong {
+  white-space: normal;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 1.3;
+  font-size: clamp(0.9rem, 3.6vw, 1.1rem);
+}
+.hearts {
+  display: inline-flex;
+  gap: 2px;
+}
+.heart {
+  font-size: 1.2em;
+  line-height: 1;
+}
+.heart.black {
+  color: #000;
+  animation: heartBlink 1.8s infinite ease-in-out;
+}
+.heart.gray {
+  color: #888;
+  animation: heartBlink 1.8s infinite ease-in-out 0.9s;
+}
+@keyframes heartBlink {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* ---------- Contenedores principales ---------- */
+.like-history,
+.history-section,
+.prog,
+.info-section,
+.wm-section,
+.counter-section {
+  width: min(92%, var(--max));
+  margin: 38px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 22px 18px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Texto anuncio */
+.names-img {
+  max-width: 95%;
+  margin: 0 auto;
+  border-top: 1px solid #000;
+  padding-top: 1px;
+}
+.love-text {
+  text-align: justify;
+  font-size: 1rem;
+  color: #222;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+/* ---------- Padres/Padrinos ---------- */
+.parents-title,
+.padrinos-title {
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  padding: 8px 12px;
+  margin: 18px auto 14px;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+.parents-split {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr;
+  gap: 16px;
+  align-items: stretch; /* <- antes estaba start */
+}
+.parents-col {
+  text-align: center;
+}
+.mini-title {
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+.parents-col p {
+  margin: 0;
+  line-height: 1.55;
+  color: #333;
+  font-size: 0.98rem;
+}
+.parents-sep {
+  position: relative;
+  width: 36px;
+  align-self: stretch; /* <- asegura que llene la fila */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+.parents-sep::before,
+.parents-sep::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: #000;
+}
+.parents-sep::before {
+  top: 0;
+  bottom: 50%;
+}
+.parents-sep::after {
+  top: 50%;
+  bottom: 0;
+}
+.sep-heart {
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  background: #fff;
+  padding: 0 6px;
+  border-radius: 999px;
+}
+@keyframes heartFade {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+.ampersand {
+  text-align: center;
+  font-weight: 900;
+  font-size: 26px;
+  margin: 6px 0 2px;
+}
+
+/* Padrinos (igual altura) */
+.gp {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 18px 14px;
+  text-align: center;
+}
+.gp-lead {
+  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+.gp-rule {
+  position: relative;
+  height: 2px;
+  background: #000;
+  max-width: 520px;
+  margin: 8px auto 12px;
+}
+.gp-rule::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: #000;
+}
+.gp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  column-gap: 10px;
+  row-gap: 10px;
+  align-items: stretch;
+}
+.gp-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.gp-item h5 {
+  margin: 0 0 6px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.86rem;
+}
+.gp-item p {
+  margin: 0;
+  color: #333;
+  line-height: 1.35;
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+}
+
+/* ---------- Historia (2 columnas en móvil) ---------- */
+.history-section .history-body {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  column-gap: 12px;
+  align-items: center;
+}
+.history-text p {
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.history-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.hp-card {
+  width: 100%;
+  max-width: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+.hp-card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Programa ---------- */
+.wrap.main {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* ---------- Timeline móvil (hora arriba, texto abajo, línea al centro y T a la mitad) ---------- */
+@media (max-width: 900px) {
+  .section.prog .prog-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    justify-items: center;
+  }
+  .section.prog .prog-cards {
+    order: 1;
+    width: 100%;
+  }
+  .section.prog .prog-timeline {
+    order: 2;
+    width: 100%;
+  }
+
+  /* Hora arriba, pegada a la línea */
+  .prog-tl-row time {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    text-align: right;
+    white-space: nowrap;
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  /* Texto abajo, alineado con la hora */
+  .prog-tl-text {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+    text-align: right;
+    line-height: 1.35;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  /* Icono pegado a la línea */
+  .prog-ico {
+    grid-column: 3;
+    justify-self: start;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    object-fit: contain;
+    filter: grayscale(100%);
+    margin-left: 0;
+  }
+}
+
+/* ---------- Info (apilar tarjetas en móvil) ---------- */
+@media (max-width: 900px) {
+  .info-section {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    justify-items: center;
+  }
+  .info-card {
+    width: 100%;
+    max-width: 560px;
+  }
+}
+
+/* ---------- Texto + firma ---------- */
+.text.center {
+  text-align: justify;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin: 0 auto 16px;
+  width: 90%;
+  color: #222;
+}
+.signature-wrap {
+  text-align: center;
+  margin: 26px 0 10px;
+}
+.signature-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #111;
+}
+.signature-text span {
+  display: inline-block;
+  font-size: clamp(38px, 10vw, 90px);
+  opacity: 0.6;
+  transform: scale(0.95);
+  animation: fadeLetter 3s infinite ease-in-out;
+}
+.signature-text .amp {
+  opacity: 1;
+  transform: none;
+  animation: none;
+  font-size: clamp(26px, 8vw, 60px);
+  margin: 0 4px;
+}
+.signature-text .sigL {
+  animation-delay: 0s;
+}
+.signature-text .sigS {
+  animation-delay: 1.5s;
+}
+@keyframes fadeLetter {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  color: #444;
+  padding-bottom: 70px;
+  font-size: 0.9rem;
+}
+.wa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid #2c2a2a;
+  background: #fff;
+  color: #4d504e;
+  font-weight: 900;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.wa-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* ---------- Botón audio ---------- */
+.audio-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 1600;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+}
+.audio-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.25);
+  animation: audioPulse 1.8s ease-out infinite;
+  opacity: 0.9;
+  pointer-events: none;
+}
+@keyframes audioPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.25);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(17, 17, 17, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(17, 17, 17, 0);
+  }
+}
+/* ==== Ajuste proporcional de iconos en info-card ==== */
+.info-ico {
+  width: clamp(80px, 35vw, 120px); /* tamaño flexible según pantalla */
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  margin: 8px auto 10px;
+  display: block;
+}
+/* === "Nuestra Historia" a ancho completo con texto envolvente === */
+.history-section .history-body {
+  display: block; /* elimina las columnas */
+  width: 100%;
+}
+/* === Nuestra Historia: texto con imágenes alineadas una debajo de otra === */
+.history-text {
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #222;
+}
+
+/* Hace que las imágenes se acomoden dentro del texto */
+.history-text img {
+  float: right; /* texto fluye a la izquierda */
+  display: block;
+  margin: 6px 0 10px 14px; /* espacio entre texto e imagen */
+  width: 40%; /* tamaño equilibrado */
+  max-width: 190px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  clear: right; /* 🔥 asegura que la segunda imagen se coloque debajo de la primera */
+}
+
+/* En celulares: centra las imágenes */
+@media (max-width: 480px) {
+  .history-text img {
+    float: none;
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    max-width: 260px;
+  }
+}
+/* === CENTRAR todos los títulos con líneas decorativas === */
+.phrase-wrapper.gap-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 💖 centra el texto */
+  gap: 12px;
+  text-align: center;
+  margin: 0 auto 18px;
+}
+
+/* Líneas a los lados */
+.phrase-wrapper.gap-lines::before,
+.phrase-wrapper.gap-lines::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #000;
+  max-width: 80px; /* largo de la línea */
+  opacity: 0.8;
+}
+
+/* Estilo de todos los títulos */
+.gv-title {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  background: #fff;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: #000;
+}
+
+/* Ajustes de márgenes para que no se peguen a otros elementos */
+.history-section .phrase-wrapper,
+.prog .phrase-wrapper,
+.info-section .phrase-wrapper,
+.counter-section .phrase-wrapper,
+.like-history .phrase-wrapper {
+  margin-bottom: 20px;
+}
+/* ==== Línea arriba y abajo del encabezado principal ==== */
+.names-img {
+  max-width: 95%;
+  margin: 0 auto;
+  display: block;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000; /* 💖 nueva línea abajo */
+  padding: 6px 0; /* espacio para que no se pegue a la imagen */
+}
+
+/* === Botón estilo periódico elegante (negro/gris) === */
+.btn-confirmar {
+  display: inline-block;
+  background: linear-gradient(180deg, #444 0%, #222 100%);
+  color: #fff;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid #000;
+  border-radius: 50px;
+  padding: 12px 26px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.btn-confirmar:hover {
+  background: linear-gradient(180deg, #555 0%, #000 100%);
+  color: #f9f9f9;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Centrado para móviles */
+.rsvp.center {
+  text-align: center;
+  margin-top: 18px;
+}
+/* === Tarjeta bancaria centrada y elegante estilo periódico === */
+.bank-card {
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 14px;
+  padding: 16px 22px;
+  margin: 20px auto 0;
+  font-family: "Merriweather", serif;
+  font-size: 0.95rem;
+  color: #111;
+  line-height: 1.65;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  text-align: center; /* 💖 centrado */
+  width: 90%;
+  max-width: 380px; /* 📏 ancho elegante para móvil */
+}
+
+.bank-card p {
+  margin: 8px 0;
+}
+
+.bank-card strong {
+  font-weight: 900;
+  color: #000;
+  text-transform: none;
+}
+/* === Intro Video (pantalla completa) === */
+#intro-video-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 9999; /* encima de todo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Animación de desvanecimiento */
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  pointer-events: none;
+}
+
+/* === Ajuste del ancho de las tarjetas de mapa === */
+.prog-cards {
+  max-width: 360px; /* reduce el ancho total */
+  margin: 0 auto; /* centra horizontalmente */
+}
+
+.prog-card {
+  width: 100%; /* que se adapte al nuevo ancho */
+  margin-bottom: 1rem;
+}
+
+.prog-card button,
+.prog-card a {
+  width: 100%;
+  max-width: 260px; /* el botón también más estrecho */
+  margin: 0 auto;
+  display: block;
+}
+/* === Botones elegantes estilo periódico === */
+button,
+a.btn,
+.prog-card a,
+#btnRSVP {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 24px;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: linear-gradient(to bottom, #3a3a3a, #1b1b1b);
+  border: 1px solid #000;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+/* Hover elegante */
+button:hover,
+a.btn:hover,
+.prog-card a:hover,
+#btnRSVP:hover {
+  background: linear-gradient(to bottom, #4b4b4b, #000);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Icono dentro del botón */
+button img,
+a.btn img,
+#btnRSVP img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+/* ==== Ajuste visual de tarjetas y títulos === */
+.prog-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* El encabezado (título) y el botón tendrán el mismo ancho */
+.prog-card-title,
+.prog-card a {
+  width: 100%;
+  max-width: 260px; /* mismo ancho que el botón */
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Ajuste visual del título */
+.prog-card-title {
+  background: linear-gradient(#f5f5f5, #e7e7e7);
+  border: 1px solid #bdbdbd;
+  border-radius: 999px; /* igual de redondeado que el botón */
+  padding: 8px 0;
+  font-weight: 900;
+  font-size: 0.95rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+/* Botón centrado */
+.prog-card a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+/* ----- Header periódico: que no se desborde en móviles ----- */
+.news-header {
+  grid-template-columns: 1fr minmax(0, auto) 1fr; /* el centro se encoge si hace falta */
+}
+/* 🔧 Ajuste de tamaño inteligente del encabezado */
+.news-cell.center {
+  font-family: "Old English Text MT", "UnifrakturCook", serif;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(14px, 4vw, 24px); /* ✅ se reduce en pantallas pequeñas */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Para móviles muy angostos */
+@media (max-width: 380px) {
+  .news-cell.center {
+    font-size: clamp(12px, 3.8vw, 18px);
+    letter-spacing: 0;
+  }
+}
+@media (max-width: 320px) {
+  .news-cell.center {
+    font-size: 12px;
+  }
+}
+/* Evita cualquier desborde horizontal del header */
+.news-header {
+  overflow: hidden;
+}
+
+/* Laterales un poco más compactos en móvil */
+.news-cell.left,
+.news-cell.right {
+  font-size: clamp(10px, 2.8vw, 12px);
+  padding: 6px 6px;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+/* Ajuste fino en pantallas muy angostas */
+@media (max-width: 360px) {
+  .news-header {
+    gap: 4px;
+  }
+}
+/* ==== FIX encabezado periódico (iPhone) ==== */
+
+/* La rejilla permite que el centro se encoja, lados con mínimo fijo */
+.news-header {
+  grid-template-columns: minmax(84px, 1fr) minmax(0, auto) minmax(84px, 1fr);
+  gap: 6px;
+  overflow: hidden; /* nunca desborde horizontal */
+}
+
+/* Lados más compactos en móvil, sin romper líneas */
+.news-cell.left,
+.news-cell.right {
+  font-size: clamp(10px, 2.7vw, 12px);
+  padding: 6px 6px;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  white-space: normal;
+}
+
+/* Centro: que el IMG se adapte y se haga pequeño si hace falta */
+.news-cell.center {
+  padding: 6px 4px;
+}
+.news-cell.center .news-banner {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  /* se reduce de forma fluida; nunca más grande que 260 ni más chico que 150 */
+  inline-size: clamp(150px, 42vw, 260px);
+}
+
+/* Afinado extra para pantallas angostas */
+@media (max-width: 390px) {
+  .news-header {
+    gap: 4px;
+  }
+  .news-cell.center .news-banner {
+    inline-size: clamp(140px, 48vw, 220px);
+  }
+  .news-cell.left,
+  .news-cell.right {
+    font-size: clamp(10px, 2.9vw, 11.5px);
+    padding: 5px 4px;
+  }
+}
+
+/* Ultra angosto (iPhone SE / zoom) */
+@media (max-width: 340px) {
+  .news-cell.center .news-banner {
+    inline-size: 65vw;
+  }
+  .news-cell.left,
+  .news-cell.right {
+    letter-spacing: 0.03em;
+  }
+}
+/* Botón “Saltar video” encima del intro */
+.skip-btn {
+  position: absolute;
+  bottom: 40px;
+  right: 24px;
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 10000;
+}
+.skip-btn:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Mensaje de pausa en el intro */
+#intro-pause-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-size: 0.95rem;
+  backdrop-filter: blur(2px);
+  z-index: 10001; /* sobre el video, debajo del botón Saltar */
+}
+/* ===== Timeline del programa ===== */
+.prog-timeline {
+  position: relative;
+  max-width: var(--max, 720px);
+  margin: 0 auto;
+  padding: 8px 0 12px;
+}
+
+/* Línea vertical negra al centro */
+.prog-timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #111; /* línea negra */
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.prog-tl-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* izq | der */
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0; /* alto por fila (ajusta para compactar/expandir) */
+}
+
+/* Tick horizontal (uno por fila) */
+.prog-tl-row::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 14px); /* centrado en la línea vertical */
+  top: 50%;
+  width: 28px; /* largo del tick */
+  height: 2px;
+  background: #111;
+  transform: translateY(-50%);
+}
+
+/* Columna izquierda (hora + texto) */
+.prog-left {
+  text-align: right;
+  padding-right: 24px; /* separa del eje */
+}
+.prog-left time {
+  display: block;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.prog-tl-text {
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+/* Columna derecha (icono) */
+.prog-right {
+  padding-left: 24px; /* separa del eje */
+}
+.prog-ico {
+  width: 46px; /* tamaño uniforme del icono */
+  height: 46px;
+  object-fit: contain;
+  display: block;
+  margin-left: 0;
+}
+
+/* ----- Responsivo móvil ----- */
+@media (max-width: 480px) {
+  .prog-tl-row {
+    gap: 12px;
+    padding: 14px 0;
+  }
+  .prog-left {
+    padding-right: 16px;
+  }
+  .prog-right {
+    padding-left: 16px;
+  }
+  .prog-ico {
+    width: 38px;
+    height: 38px;
+  }
+  .prog-left time {
+    font-size: 0.95rem;
+  }
+  .prog-tl-text {
+    font-size: 0.9rem;
+  }
+}
+/* ---- Parpadeo secuencial SOLO en el timeline ---- */
+.prog-timeline .prog-ico {
+  opacity: 0.35;
+  filter: grayscale(100%) brightness(0.7);
+  transform: scale(1);
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.25s ease;
+  will-change: opacity, transform, filter;
+}
+
+.prog-timeline .prog-ico.is-on {
+  opacity: 1;
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.06);
+}
+
+/* Respeta accesibilidad: sin animaciones si el usuario lo pide */
+@media (prefers-reduced-motion: reduce) {
+  .prog-timeline .prog-ico {
+    transition: none !important;
+  }
+}
+/* ❤️ Latido para el corazón del separador de padres */
+.parents-sep .sep-heart {
+  display: inline-block;
+  animation: heartbeat 1.8s ease-in-out infinite;
+  transform-origin: center;
+  /* opcional: un brillo muy sutil como de tinta */
+  text-shadow: 0 0 0.6px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  10% {
+    transform: scale(1.22);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  30% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* Accesibilidad: si el usuario prefiere menos movimiento, quita la animación */
+@media (prefers-reduced-motion: reduce) {
+  .parents-sep .sep-heart {
+    animation: none !important;
+  }
+}

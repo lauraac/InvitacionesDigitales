@@ -52,7 +52,6 @@
   </div>
 
   <!-- Efectos -->
-  <div class="confetti" id="confetti"></div>
   <div class="pretty-rain" id="prettyRain"></div>
   <div class="music-floating" id="musicControl">
     <i class="bi bi-play-fill" id="musicIcon"></i><span id="musicText">Música</span>
@@ -381,61 +380,38 @@
       }
     }
 
-    // ----- Confetti -----
-    const confettiEl = $("confetti");
-    const colors = [
-      "#ffffff",
-      "#ffe1fb",
-      "#d8d8ff",
-      "#c4fbff",
-      "#ffd3e8",
-      "#e7e2ff",
-    ];
-    function makeSpark() {
-      if (!confettiEl) return;
-      const s = document.createElement("div");
-      s.className = "spark";
-      s.style.left = Math.random() * 100 + "vw";
-      s.style.top = "-10vh";
-      s.style.background = colors[Math.floor(Math.random() * colors.length)];
-      s.style.transform =
-        "translateY(0) rotate(" + Math.random() * 180 + "deg)";
-      s.style.animationDuration = 3 + Math.random() * 3 + "s";
-      confettiEl.appendChild(s);
-      setTimeout(() => s.remove(), 6500);
-    }
-    setInterval(makeSpark, 180);
-
-    // ----- Globitos -----
+    // ----- Globitos (con imagen) -----
     const pretty = $("prettyRain");
-    const pastel = [
-      "#ffe1fb",
-      "#e5e4ff",
-      "#dff8ff",
-      "#ffd8e8",
-      "#e7f7ff",
-      "#fff",
-    ];
+
+    // ruta de tu imagen de globo
+    const BALLOON_IMG = "./img/globo-kpop.png";
+
     function spawnDrop() {
       if (!pretty) return;
+
       const d = document.createElement("div");
-      d.className = "drop " + (Math.random() < 0.6 ? "balloon" : "");
+      d.className = "drop balloon";
+
+      // posición inicial arriba
       d.style.left = Math.random() * 100 + "vw";
-      d.style.top = "-10vh";
-      if (d.classList.contains("balloon")) {
-        d.style.setProperty(
-          "--col",
-          pastel[Math.floor(Math.random() * pastel.length)]
-        );
-      }
+      d.style.top = "-15vh";
+
+      // variables para el vaivén
       d.style.setProperty("--dx", Math.random() * 20 - 10 + "vw");
-      d.style.setProperty("--rot", Math.random() * 120 - 60 + "deg");
-      d.style.animation = "floatDown " + (6 + Math.random() * 4) + "s linear forwards";
+      d.style.setProperty("--rot", Math.random() * 40 - 20 + "deg");
+
+      // duración más lenta (10–16s)
+      const dur = 10 + Math.random() * 6;
+      d.style.animation = "floatDown " + dur + "s linear forwards";
 
       pretty.appendChild(d);
-      setTimeout(() => d.remove(), 10000);
+
+      // limpiar del DOM
+      setTimeout(() => d.remove(), (dur + 2) * 1000);
     }
-    setInterval(spawnDrop, 320);
+
+    // menos globos = salen más lento (cada 1.2s)
+    setInterval(spawnDrop, 1200);
 
     // ----- Cuenta regresiva -----
     function setCdValue(id, v) {

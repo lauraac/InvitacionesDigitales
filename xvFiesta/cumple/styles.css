@@ -263,14 +263,6 @@ h2.h4.fw-bold {
   font-weight: 600;
 }
 
-/* Confetti + globitos (igual que antes) */
-.confetti {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
 .spark {
   position: absolute;
   width: 10px;
@@ -439,30 +431,6 @@ h2.h4.fw-bold {
   opacity: 0.9;
 }
 
-.drop.balloon {
-  width: 18px;
-  height: 24px;
-  border-radius: 12px 12px 14px 14px;
-  background: radial-gradient(
-      circle at 30% 25%,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0) 40%
-    ),
-    var(--col);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.drop.balloon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -8px;
-  width: 2px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.85);
-  transform: translateX(-50%);
-}
-
 /* Tarjetas con zoom suave al hover/touch */
 /* Tarjetas con POP al hover/touch */
 .fx-card {
@@ -626,4 +594,48 @@ footer .wa-chip i {
   margin-right: 4px;
   filter: none !important;
   transform: none !important;
+}
+
+/* Contenedor de la lluvia */
+.pretty-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5; /* por encima del fondo pero debajo del contenido si quieres */
+}
+
+/* Base de cada globo */
+/* Base de cada globo */
+.drop {
+  position: absolute;
+  width: 120px; /* ancho del globo */
+  height: 180px; /* alto del globo */
+  will-change: transform;
+  opacity: 0.95;
+}
+
+/* Aquí usamos la imagen de globo */
+.drop.balloon {
+  background-image: url("./img/globo1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@keyframes floatDown {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(var(--dx, 0), 50vh, 0) rotate(var(--rot, 10deg));
+  }
+  100% {
+    transform: translate3d(var(--dx, 0), 110vh, 0) rotate(var(--rot, 20deg));
+    opacity: 0;
+  }
 }
