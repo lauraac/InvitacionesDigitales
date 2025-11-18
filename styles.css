@@ -669,8 +669,7 @@ body.lock-scroll {
 .angel-rain {
   position: fixed;
   inset: 0;
-  /* Ahora SÍ dejamos que reciba eventos para poder tocar globos */
-  pointer-events: auto;
+  pointer-events: none; /* 👈 YA NO BLOQUEA LOS BOTONES */
   overflow: hidden;
   z-index: 1500;
 }
@@ -685,6 +684,7 @@ body.lock-scroll {
   animation-timing-function: linear;
   animation-iteration-count: 1;
   animation-fill-mode: forwards; /* 👈 nuevo */
+  pointer-events: auto;
 }
 
 @keyframes angelFall {
