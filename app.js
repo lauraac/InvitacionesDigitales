@@ -55,128 +55,144 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ---------- INTRO (VIDEO) + MÚSICA ---------- */
-  const intro = document.getElementById("introVideo");
-  const video = document.getElementById("introPlayer");
-  const appWrap = document.getElementById("app");
+/* ---------- INTRO (VIDEO) + MÚSICA ---------- */
+const intro = document.getElementById("introVideo");
+const video = document.getElementById("introPlayer");
+const appWrap = document.getElementById("app");
 
-  const audio = document.getElementById("bgAudio");
-  const audioBtn = document.getElementById("audioToggle");
-  const audioIcon = document.getElementById("audioIcon");
-  const introSoundBtn = document.getElementById("introSoundBtn");
+const audio = document.getElementById("bgAudio");     // 🎵 música de fondo (después del video)
+const audioBtn = document.getElementById("audioToggle");
+const audioIcon = document.getElementById("audioIcon");
 
-  const imgPlay = "./img/musica.png"; // cuando está pausado
-  const imgPause = "./img/pause.png"; // cuando está sonando
-  const INITIAL_VOL = 0.06; // volumen al abrir (muy bajito)
-  const TARGET_VOL = 0.18; // volumen objetivo suave
-  const FADE_MS = 2000; // duración del fade-in en milisegundos
-  function fadeTo(target = TARGET_VOL, ms = FADE_MS) {
-    if (!audio) return;
-    const start = audio.volume;
-    const delta = target - start;
-    const t0 = performance.now();
+const introSoundBtn = document.getElementById("introSoundBtn"); // 🎬 botón del intro
 
-    function step(t) {
-      const k = Math.min(1, (t - t0) / ms);
-      audio.volume = Math.max(0, Math.min(1, start + delta * k));
-      if (k < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+const imgPlay = "./img/musica.png"; // cuando está pausado
+const imgPause = "./img/pause.png"; // cuando está sonando
+const INITIAL_VOL = 0.06;
+const TARGET_VOL = 0.18;
+const FADE_MS = 2000;
+
+function fadeTo(target = TARGET_VOL, ms = FADE_MS) {
+  if (!audio) return;
+  const start = audio.volume;
+  const delta = target - start;
+  const t0 = performance.now();
+
+  function step(t) {
+    const k = Math.min(1, (t - t0) / ms);
+    audio.volume = Math.max(0, Math.min(1, start + delta * k));
+    if (k < 1) requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
+}
 
-  const updateAudioBtn = () => {
-    if (!audioBtn || !audioIcon) return;
+const updateAudioBtn = () => {
+  if (!audioBtn || !audioIcon || !audio) return;
+  if (audio.paused) {
+    audioBtn.classList.add("paused");
+    audioIcon.src = imgPlay;
+    audioIcon.alt = "Reproducir música";
+    audioBtn.title = "Reproducir música";
+  } else {
+    audioBtn.classList.remove("paused");
+    audioIcon.src = imgPause;
+    audioIcon.alt = "Pausar música";
+    audioBtn.title = "Pausar música";
+  }
+};
+
+// 👉 ESTA función SOLO es para la música de fondo bgAudio
+const tryPlayAudio = async () => {
+  if (!audio) return;
+  audio.volume = INITIAL_VOL;
+  try {
+    await audio.play();
+    fadeTo(TARGET_VOL, FADE_MS);
+  } catch (e) {
+    console.log("Autoplay bloqueado, el usuario deberá tocar el botón de música.", e);
+  }
+  updateAudioBtn();
+};
+
+// Botón flotante de música (para bgAudio)
+if (audioBtn && audio) {
+  audioBtn.addEventListener("click", async () => {
     if (audio.paused) {
-      audioBtn.classList.add("paused");
-      audioIcon.src = imgPlay;
-      audioIcon.alt = "Reproducir música";
-      audioBtn.title = "Reproducir música";
+      try {
+        audio.volume = INITIAL_VOL;
+        await audio.play();
+        fadeTo(TARGET_VOL, FADE_MS);
+      } catch (e) {
+        console.log("No se pudo reproducir bgAudio:", e);
+      }
     } else {
-      audioBtn.classList.remove("paused");
-      audioIcon.src = imgPause;
-      audioIcon.alt = "Pausar música";
-      audioBtn.title = "Pausar música";
-    }
-  };
-
-  const tryPlayAudio = async () => {
-    if (!audio) return;
-    audio.volume = INITIAL_VOL; // 👈 empieza muy bajo
-    try {
-      await audio.play(); // intenta reproducir
-      fadeTo(TARGET_VOL, FADE_MS); // 👈 sube suave
-    } catch {
-      // Si el navegador bloquea el autoplay con sonido,
-      // el usuario tocará el botón y ahí haremos el fade también.
+      audio.pause();
     }
     updateAudioBtn();
-  };
+  });
+}
 
-  if (audioBtn && audio) {
-    audioBtn.addEventListener("click", async () => {
-      if (audio.paused) {
-        try {
-          audio.volume = INITIAL_VOL; // 👈 por si venías de pausa
-          await audio.play();
-          fadeTo(TARGET_VOL, FADE_MS);
-        } catch {}
-      } else {
-        audio.pause();
+// 👉 LÓGICA DEL INTRO
+if (intro && video && appWrap) {
+  document.body.classList.add("lock-scroll");
+
+  // 1) Botón que activa SOLO el audio del video
+  if (introSoundBtn && video) {
+    introSoundBtn.addEventListener("click", async (e) => {
+      e.stopPropagation(); // que no salte el intro
+      try {
+        video.muted = false;    // 🔊 activamos audio del video
+        await video.play();
+        introSoundBtn.style.display = "none"; // ya no estorba
+      } catch (err) {
+        console.log("No se pudo activar el sonido del video:", err);
       }
-      updateAudioBtn();
     });
   }
 
-  // Intro video
-  if (intro && video && appWrap) {
-    document.body.classList.add("lock-scroll");
-    if (introSoundBtn && audio && video) {
-      introSoundBtn.addEventListener("click", async (e) => {
-        e.stopPropagation(); // 👉 para que NO se salte la intro al tocar el botón
+  // 2) Función que quita la intro y muestra la página + música de fondo
+  const revealApp = () => {
+    intro.style.opacity = "0";
 
-        try {
-          // Desmutea el video
-          video.muted = false;
-          await video.play();
+    setTimeout(() => {
+      // Apagar el video del intro
+      try {
+        video.pause();
+        video.currentTime = 0;
+        video.muted = true; // por si acaso
+      } catch (e) {
+        console.log("No se pudo pausar el video de intro:", e);
+      }
 
-          // Inicia la música de fondo
-          audio.volume = INITIAL_VOL;
-          await audio.play();
-          fadeTo(TARGET_VOL, FADE_MS);
+      // Quitar intro, mostrar app
+      intro.remove();
+      appWrap.hidden = false;
+      document.body.classList.remove("lock-scroll");
+      window.scrollTo(0, 0);
 
-          // Oculta el botón, ya no lo necesitamos
-          introSoundBtn.style.display = "none";
-        } catch (err) {
-          console.log("No se pudo reproducir audio:", err);
-        }
-      });
-    }
+      // Ahora sí: mostrar botón de música y prender bgAudio
+      if (audioBtn) audioBtn.hidden = false;
+      tryPlayAudio();
+    }, 450);
+  };
 
-    const revealApp = () => {
-      intro.style.opacity = "0";
-      setTimeout(() => {
-        intro.remove();
-        appWrap.hidden = false;
-        document.body.classList.remove("lock-scroll");
-        window.scrollTo(0, 0);
+  // Termina el video → pasamos a la página
+  video.addEventListener("ended", revealApp, { once: true });
 
-        // Mostrar botón y empezar música
-        audioBtn.hidden = false;
-        tryPlayAudio();
-      }, 450);
-    };
+  // Por si el video tarda o falla, forzamos el cambio a los X ms
+  setTimeout(revealApp, 4500);
 
-    video.addEventListener("ended", revealApp, { once: true });
-    setTimeout(revealApp, 4500);
-    setTimeout(
-      () => intro.addEventListener("click", revealApp, { once: true }),
-      1200
-    );
-  } else {
-    audioBtn.hidden = false;
-    tryPlayAudio();
-  }
-});
+  // Tocar la pantalla → también se puede saltar el intro
+  setTimeout(
+    () => intro.addEventListener("click", revealApp, { once: true }),
+    1200
+  );
+} else {
+  // Si por alguna razón no hay intro, mostramos directo la app con música de fondo
+  if (audioBtn) audioBtn.hidden = false;
+  tryPlayAudio();
+}
+
 
 (function () {
   const notice = document.getElementById("desktopNotice");

@@ -844,3 +844,50 @@ body.lock-scroll {
     opacity: 0;
   }
 }
+/* Contenedor del intro */
+.intro-video {
+  position: relative;
+  z-index: 10;
+}
+
+/* El video */
+.intro-video video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* Botón para activar sonido */
+.intro-sound-btn {
+  position: absolute;
+  bottom: 40px; /* o ponlo en medio con top:50% */
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 9999; /* 👈 aseguradísimo arriba del video */
+
+  background: rgba(255, 255, 255, 0.85);
+  border: 0;
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #444;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  animation: pulseBtn 1.5s infinite;
+}
+
+/* Efecto suave */
+@keyframes pulseBtn {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
