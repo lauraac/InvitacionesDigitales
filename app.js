@@ -251,52 +251,81 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
-// ===== Lluvia de angelitos 👼 =====
+// ===== Lluvia de globos 🎈 con explosión tipo bomba de chicle =====
 (function () {
-  // Crea el contenedor de la lluvia
-  const rainLayer = document.createElement("div");
-  rainLayer.className = "angel-rain";
-  document.body.appendChild(rainLayer);
+  // Capa de lluvia (reutiliza si ya existe)
+  let rainLayer = document.querySelector(".angel-rain");
+  if (!rainLayer) {
+    rainLayer = document.createElement("div");
+    rainLayer.className = "angel-rain";
+    document.body.appendChild(rainLayer);
+  }
 
-  // Cambia esta ruta por tu GIF real del angelito
-  const ANGEL_SRC = "./img/inicio/URIimg.gif";
+  const ANGEL_SRC = "./img/globo1.png"; // globito
+  const MAX_ANGELS = 6; // cuántos globos máximo al mismo tiempo
+  let currentAngels = 0;
 
   function createAngel() {
+    if (!rainLayer) return;
+    if (currentAngels >= MAX_ANGELS) return;
+
     const angel = document.createElement("img");
     angel.src = ANGEL_SRC;
-    angel.alt = "Angelito";
+    angel.alt = "Globito";
     angel.className = "angelito";
 
-    // Tamaño aleatorio (pequeños y medianos)
-    const size = 40 + Math.random() * 40; // 40px a 80px
+    // Tamaño aleatorio (40px a 80px)
+    const size = 40 + Math.random() * 40;
     angel.style.width = size + "px";
 
-    // Posición horizontal aleatoria
-    const left = Math.random() * 100; // 0 a 100 vw
+    // Posición horizontal aleatoria (0 a 100vw)
+    const left = Math.random() * 100;
     angel.style.left = left + "vw";
 
-    // Duración de la caída
-    const duration = 12 + Math.random() * 8; // 12s a 20s
+    // Duración de la caída (10s a 16s para que se vea bien)
+    const duration = 10 + Math.random() * 6;
     angel.style.animationDuration = duration + "s";
 
-    // Pequeño delay para que no caigan todas iguales
-    const delay = Math.random() * 3; // 0 a 3s
+    // Pequeño delay inicial
+    const delay = Math.random() * 2;
     angel.style.animationDelay = delay + "s";
 
+    currentAngels++;
     rainLayer.appendChild(angel);
 
-    // Eliminar el angelito después de la animación
-    setTimeout(() => {
-      angel.remove();
-    }, (duration + delay) * 1000);
+    // Cuando termina la animación de caída (angelFall)
+    angel.addEventListener(
+      "animationend",
+      () => {
+        // Calculamos dónde está el globo en pantalla
+        const rect = angel.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Creamos la explosión tipo puff
+        const boom = document.createElement("div");
+        boom.className = "explosion-angel";
+        boom.style.left = centerX + "px";
+        boom.style.top = centerY + "px";
+
+        document.body.appendChild(boom);
+
+        // Quitamos el globo
+        angel.remove();
+        currentAngels--;
+
+        // Quitamos la explosión después de la animación
+        setTimeout(() => boom.remove(), 650);
+      },
+      { once: true }
+    );
   }
 
-  // Crear unos cuantos al inicio
-  // Crear SOLO 1 angelito al inicio
-  for (let i = 0; i < 1; i++) {
-    createAngel();
+  // Crear algunos globos al inicio, escalonados
+  for (let i = 0; i < 3; i++) {
+    setTimeout(createAngel, i * 700);
   }
 
-  // Seguir creando angelitos cada cierto tiempo
-  setInterval(createAngel, 1500);
+  // Seguir creando globos cada cierto tiempo
+  setInterval(createAngel, 2300);
 })();
