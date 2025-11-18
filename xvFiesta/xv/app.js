@@ -475,8 +475,7 @@ buildICS();
   });
 })();
 /* =====================  HASHTAG (Drive + GAS)  ===================== */
-const GAS_URL =
-  "https://script.google.com/macros/s/AKfycbzjtyRR5FBNEiapxp3IyBBbouxWcSiZ0BYZR1Dhwa_RQJZc7GZkHZgNhIsaG-z2kEQ/exec";
+const GAS_URL = "";
 
 // ← Pega aquí tu URL de Apps Script (la que termina en /exec)
 const VISIBLE = 6; // fotos visibles en mural
