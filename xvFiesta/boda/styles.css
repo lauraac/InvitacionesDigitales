@@ -1451,7 +1451,7 @@ a.btn img,
 .btn-fotos:active {
   transform: scale(0.98);
 }
-/* ===== Collage de fotos más pequeño y elegante (versión celular) ===== */
+/* ===== Collage de fotos más pequeño, elegante y con efecto ===== */
 .fotos-collage {
   display: flex;
   justify-content: center;
@@ -1461,18 +1461,46 @@ a.btn img,
   max-width: 420px; /* que no se haga gigante en pantallas grandes */
 }
 
-/* Cada foto como tarjetita vertical */
+/* Cada foto como tarjetita vertical con flotadito */
 .fotos-collage img {
   flex: 1 1 0;
   max-width: 180px;
-  aspect-ratio: 3 / 4; /* 🔥 controla que no se vean largas */
-  object-fit: cover; /* recorta bonito */
+  aspect-ratio: 3 / 4; /* 🔥 evita que se vean largas */
+  object-fit: cover;
   border-radius: 14px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
   border: 2px solid rgba(255, 255, 255, 0.9);
+  transform: translateY(0) scale(1);
+  animation: floatPhoto 6s ease-in-out infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* En celulares angostos: siguen lado a lado pero más compactas */
+/* La segunda foto con tiempo distinto para que no se muevan igual */
+.fotos-collage img:nth-child(2) {
+  animation-duration: 7s;
+  animation-delay: 0.6s;
+}
+
+/* Toquecito cuando tocan la foto (móvil) */
+.fotos-collage img:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Animación de flotado suave */
+@keyframes floatPhoto {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* En celulares angostos: siguen lado a lado pero compactas */
 @media (max-width: 480px) {
   .fotos-collage {
     gap: 8px;
@@ -1481,5 +1509,12 @@ a.btn img,
   .fotos-collage img {
     max-width: none;
     aspect-ratio: 3 / 4;
+  }
+}
+
+/* Respeta accesibilidad: sin animación si el usuario lo pide */
+@media (prefers-reduced-motion: reduce) {
+  .fotos-collage img {
+    animation: none !important;
   }
 }
