@@ -163,8 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyBtn = document.getElementById("dnCopy");
   const waBtn = document.getElementById("dnWhats");
 
-  // ✅ Usa tu URL publicada (fija y sin dudas)
-  const url = "https://lauraac.github.io/InvitacionesDigitales/";
+  // ✅ Usa tu URL corta y bonita
+  const url = "https://tinyurl.com/invitacioneslac";
 
   // ===== QR con fallback =====
   // 1) Primer servicio
