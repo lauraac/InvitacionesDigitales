@@ -140,7 +140,7 @@ if (intro) {
 // ========= CONFIG =========
 const EVENT_DATE = new Date("2026-04-11T18:00:00-06:00"); // MX local
 const FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScIe2cZNXGnV6x0CooqhrUSYLOrXf6-oghtEeeNJG4DyPOusQ/viewform";
+  "https://docs.google.com/forms/d/e/1FAIpQLSfibjQyeuk1HeAn7IfBK1o0TwpccrQJnWs05d96T-Yvs1tDLg/viewform?usp=preview";
 const FORM_ENTRIES = {
   nombre: "entry.1111111111",
   puedeAsistir: "entry.2222222222",
@@ -475,7 +475,7 @@ function waitForMetadata(audio) {
       // 👉 GOOGLE MAPS: usa exactamente el link que tienes en WhatsApp
       btnMaps.onclick = () => {
         window.open(
-          "https://maps.app.goo.gl/LUXP5rXH8cxzmnhCA?g_st=aw",
+          "https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3428515,-98.992636,18z/data=!4m14!1m7!3m6!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!2sParroquia+de+Corpus+Christi!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D",
           "_blank"
         );
         closeModal();
@@ -484,7 +484,7 @@ function waitForMetadata(audio) {
       // 👉 WAZE: búsqueda directa del salón con navegación
       btnWaze.onclick = () => {
         const wazeUrl =
-          "https://waze.com/ul?q=" +
+          "https://www.waze.com/live-map/directions?from=place.ChIJE222Ll4dzoURbzH2fyaySCY" +
           encodeURIComponent(
             "Salones Palazzio Videmar, Manuel González 71, Ex Hipódromo de Peralvillo, Cuauhtémoc, Ciudad de México, CDMX"
           ) +
@@ -498,14 +498,16 @@ function waitForMetadata(audio) {
     if (tipo === "ceremonia") {
       // 👉 GOOGLE MAPS (tu link exacto)
       btnMaps.onclick = () => {
-        window.open("https://maps.app.goo.gl/dMMmgYUSe3YkB8MQ6", "_blank");
+        window.open(
+          "https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3428515,-98.992636,18z/data=!4m14!1m7!3m6!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!2sParroquia+de+Corpus+Christi!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu"
+        );
         closeModal();
       };
 
       // 👉 WAZE (búsqueda por nombre/dirección)
       btnWaze.onclick = () => {
         const wazeUrl =
-          "https://waze.com/ul?q=" +
+          "https://www.waze.com/live-map/directions?from=place.ChIJE222Ll4dzoURbzH2fyaySCY" +
           encodeURIComponent(
             "Parroquia de María Auxiliadora, Colegio Salesiano #61, Anáhuac I Secc, Miguel Hidalgo, CDMX"
           ) +
