@@ -1400,34 +1400,6 @@ a.btn img,
   font-style: italic;
 }
 
-/* Collage */
-.fotos-collage {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.fotos-collage img {
-  width: 44%;
-  max-width: 180px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  object-fit: cover;
-}
-
-/* Responsive: en celulares apilado */
-@media (max-width: 450px) {
-  .fotos-collage {
-    flex-direction: column;
-    gap: 14px;
-  }
-  .fotos-collage img {
-    width: 82%;
-    max-width: 260px;
-    margin: 0 auto;
-  }
-}
 .fallecido {
   display: inline-flex;
   align-items: center;
@@ -1478,4 +1450,36 @@ a.btn img,
 }
 .btn-fotos:active {
   transform: scale(0.98);
+}
+/* ===== Collage de fotos más pequeño y elegante (versión celular) ===== */
+.fotos-collage {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px;
+  margin: 14px auto 0;
+  max-width: 420px; /* que no se haga gigante en pantallas grandes */
+}
+
+/* Cada foto como tarjetita vertical */
+.fotos-collage img {
+  flex: 1 1 0;
+  max-width: 180px;
+  aspect-ratio: 3 / 4; /* 🔥 controla que no se vean largas */
+  object-fit: cover; /* recorta bonito */
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* En celulares angostos: siguen lado a lado pero más compactas */
+@media (max-width: 480px) {
+  .fotos-collage {
+    gap: 8px;
+    padding: 0 6px;
+  }
+  .fotos-collage img {
+    max-width: none;
+    aspect-ratio: 3 / 4;
+  }
 }
