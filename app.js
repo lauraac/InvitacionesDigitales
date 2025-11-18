@@ -265,6 +265,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const MAX_ANGELS = 6; // cuántos globos máximo al mismo tiempo
   let currentAngels = 0;
 
+  // Reutilizamos la misma lógica de explosión para caída y para toque
+  function explodeAngel(angel) {
+    if (!angel) return;
+
+    // Obtener el centro del globo en pantalla
+    const rect = angel.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // Crear la "bomba de chicle"
+    const boom = document.createElement("div");
+    boom.className = "explosion-angel";
+    boom.style.left = centerX + "px";
+    boom.style.top = centerY + "px";
+
+    document.body.appendChild(boom);
+
+    // Quitar globo
+    angel.remove();
+    currentAngels = Math.max(0, currentAngels - 1);
+
+    // Quitar explosión cuando termine
+    setTimeout(() => boom.remove(), 650);
+  }
+
   function createAngel() {
     if (!rainLayer) return;
     if (currentAngels >= MAX_ANGELS) return;
@@ -282,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const left = Math.random() * 100;
     angel.style.left = left + "vw";
 
-    // Duración de la caída (10s a 16s para que se vea bien)
+    // Duración de la caída (10s a 16s)
     const duration = 10 + Math.random() * 6;
     angel.style.animationDuration = duration + "s";
 
@@ -293,32 +318,27 @@ document.addEventListener("DOMContentLoaded", () => {
     currentAngels++;
     rainLayer.appendChild(angel);
 
-    // Cuando termina la animación de caída (angelFall)
+    // 💥 Explota solo al terminar la animación (si nadie lo tocó)
     angel.addEventListener(
       "animationend",
       () => {
-        // Calculamos dónde está el globo en pantalla
-        const rect = angel.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        // Creamos la explosión tipo puff
-        const boom = document.createElement("div");
-        boom.className = "explosion-angel";
-        boom.style.left = centerX + "px";
-        boom.style.top = centerY + "px";
-
-        document.body.appendChild(boom);
-
-        // Quitamos el globo
-        angel.remove();
-        currentAngels--;
-
-        // Quitamos la explosión después de la animación
-        setTimeout(() => boom.remove(), 650);
+        if (document.body.contains(angel)) {
+          explodeAngel(angel);
+        }
       },
       { once: true }
     );
+
+    // 💥 Explota cuando lo tocan (móvil) o hacen click (PC)
+    const handleTap = (ev) => {
+      ev.preventDefault();
+      // Evitamos doble explosión
+      if (!document.body.contains(angel)) return;
+      explodeAngel(angel);
+    };
+
+    angel.addEventListener("click", handleTap);
+    angel.addEventListener("touchstart", handleTap, { passive: false });
   }
 
   // Crear algunos globos al inicio, escalonados

@@ -669,9 +669,10 @@ body.lock-scroll {
 .angel-rain {
   position: fixed;
   inset: 0;
-  pointer-events: none; /* No estorba al usuario */
+  /* Ahora SÍ dejamos que reciba eventos para poder tocar globos */
+  pointer-events: auto;
   overflow: hidden;
-  z-index: 1500; /* Encima del contenido, debajo del aviso escritorio (9999) */
+  z-index: 1500;
 }
 
 .angelito {
