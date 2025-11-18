@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bgAudio");
   const audioBtn = document.getElementById("audioToggle");
   const audioIcon = document.getElementById("audioIcon");
+  const introSoundBtn = document.getElementById("introSoundBtn");
 
   const imgPlay = "./img/musica.png"; // cuando está pausado
   const imgPause = "./img/pause.png"; // cuando está sonando
@@ -129,6 +130,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // Intro video
   if (intro && video && appWrap) {
     document.body.classList.add("lock-scroll");
+    if (introSoundBtn && audio && video) {
+      introSoundBtn.addEventListener("click", async (e) => {
+        e.stopPropagation(); // 👉 para que NO se salte la intro al tocar el botón
+
+        try {
+          // Desmutea el video
+          video.muted = false;
+          await video.play();
+
+          // Inicia la música de fondo
+          audio.volume = INITIAL_VOL;
+          await audio.play();
+          fadeTo(TARGET_VOL, FADE_MS);
+
+          // Oculta el botón, ya no lo necesitamos
+          introSoundBtn.style.display = "none";
+        } catch (err) {
+          console.log("No se pudo reproducir audio:", err);
+        }
+      });
+    }
 
     const revealApp = () => {
       intro.style.opacity = "0";
