@@ -120,8 +120,7 @@ header {
 .titulo-img {
   display: block;
   margin: 0 auto;
-  width: 300px; /* 🔸 tamaño fijo más pequeño */
-  height: auto;
+  width: 600px; /* 🔸 tamaño fijo más pequeño */
 }
 
 /* Texto animado + mano */
