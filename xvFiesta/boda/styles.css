@@ -1451,70 +1451,45 @@ a.btn img,
 .btn-fotos:active {
   transform: scale(0.98);
 }
-/* ===== Collage de fotos más pequeño, elegante y con efecto ===== */
+
+/* ===== Collage de fotos: chiquitas, sin deformarse y con efecto suave ===== */
 .fotos-collage {
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   gap: 10px;
   margin: 14px auto 0;
-  max-width: 420px; /* que no se haga gigante en pantallas grandes */
+  max-width: 420px; /* para que no se hagan gigantes */
 }
 
-/* Cada foto como tarjetita vertical con flotadito */
+/* Fotos lado a lado, respetando su forma original */
 .fotos-collage img {
-  flex: 1 1 0;
-  max-width: 180px;
-  aspect-ratio: 3 / 4; /* 🔥 evita que se vean largas */
-  object-fit: cover;
+  width: 48%; /* dos por fila */
+  height: auto; /* ❗ NO forzamos alto, usa el natural */
+  max-height: 150px; /* 🔥 límite para que NO se vean largas en el cel */
+  object-fit: cover; /* recorta un poquito si son muy altas */
   border-radius: 14px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
   border: 2px solid rgba(255, 255, 255, 0.9);
-  transform: translateY(0) scale(1);
-  animation: floatPhoto 6s ease-in-out infinite;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform: translateY(0);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* La segunda foto con tiempo distinto para que no se muevan igual */
-.fotos-collage img:nth-child(2) {
-  animation-duration: 7s;
-  animation-delay: 0.6s;
-}
-
-/* Toquecito cuando tocan la foto (móvil) */
+/* Efecto suave: flotan un poquito al pasar o tocar */
+.fotos-collage img:hover,
 .fotos-collage img:active {
-  transform: translateY(2px) scale(0.97);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
 }
 
-/* Animación de flotado suave */
-@keyframes floatPhoto {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-6px) scale(1.02);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* En celulares angostos: siguen lado a lado pero compactas */
+/* En celulares angostos, siguen lado a lado pero bien compactas */
 @media (max-width: 480px) {
   .fotos-collage {
     gap: 8px;
     padding: 0 6px;
   }
-  .fotos-collage img {
-    max-width: none;
-    aspect-ratio: 3 / 4;
-  }
-}
 
-/* Respeta accesibilidad: sin animación si el usuario lo pide */
-@media (prefers-reduced-motion: reduce) {
   .fotos-collage img {
-    animation: none !important;
+    max-height: 130px; /* aún más bajitas en iPhone */
   }
 }
