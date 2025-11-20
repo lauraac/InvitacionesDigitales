@@ -875,3 +875,29 @@ footer .wa-chip i {
   object-fit: contain;
   pointer-events: none; /* para que el click sea del botón, no de la imagen */
 }
+
+/* ✅ Permitir que el dragón se pueda tocar */
+.flying-dragon {
+  pointer-events: auto; /* antes lo teníamos en none */
+}
+
+/* 💥 Estado cuando el dragón explota */
+.flying-dragon.dragon-pop {
+  animation: dragonPop 0.45s ease-out forwards;
+}
+
+/* 💥 Animación de explosión */
+@keyframes dragonPop {
+  0% {
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(4px) translateY(-4px) scale(1.6) rotate(12deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(0) rotate(25deg);
+    opacity: 0;
+  }
+}

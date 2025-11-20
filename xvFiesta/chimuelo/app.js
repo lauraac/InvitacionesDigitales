@@ -134,6 +134,40 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", handleFirstInteraction);
     document.addEventListener("touchstart", handleFirstInteraction);
   }
+  // 🐉 Dragón que explota al tocarlo
+  const flyingDragon = document.querySelector(".flying-dragon");
+  if (flyingDragon) {
+    // Asegura que la animación empiece en pausa
+    flyingDragon.style.animationPlayState = "paused";
+
+    setTimeout(() => {
+      flyingDragon.style.animationPlayState = "running";
+    }, 1500);
+
+    // 💥 Explosión al tocar el dragón
+    const handleExplosion = () => {
+      if (flyingDragon.classList.contains("dragon-pop")) return;
+
+      // agregar clase de explosión
+      flyingDragon.classList.add("dragon-pop");
+
+      flyingDragon.addEventListener(
+        "animationend",
+        () => {
+          flyingDragon.classList.remove("dragon-pop");
+
+          // reiniciar la animación desde cero
+          flyingDragon.style.animation = "none";
+          void flyingDragon.offsetWidth; // fuerza reflow
+          flyingDragon.style.animation = ""; // vuelve a la animación CSS
+        },
+        { once: true }
+      );
+    };
+
+    flyingDragon.addEventListener("click", handleExplosion);
+    flyingDragon.addEventListener("touchstart", handleExplosion);
+  }
 });
 // ==== Lluvia de fuego con imagen real ====
 const containerFire = document.getElementById("fire-particles");
