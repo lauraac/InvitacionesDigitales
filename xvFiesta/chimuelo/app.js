@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (footerFirma) observer.observe(footerFirma);
 
   // Música
-  // Música
   const musicToggle = document.getElementById("music-toggle");
   const bgMusic = document.getElementById("bg-music");
 
@@ -103,11 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => {
           isPlaying = true;
           musicToggle.classList.add("playing");
-          setPauseIcon();
+          setPauseIcon(); // cuando está sonando, mostramos pausa
         })
         .catch(() => {
-          // Si el navegador no deja autoplay con sonido, no pasa nada
-          // el usuario podrá darle clic al botón
+          // el navegador bloqueó el autoplay, se resolverá con el primer toque
         });
     };
 
@@ -118,15 +116,23 @@ document.addEventListener("DOMContentLoaded", () => {
       setNoteIcon();
     };
 
-    // Al hacer clic, alterna música y icono
+    // Clic en el botón → alterna música
     musicToggle.addEventListener("click", () => {
       if (!isPlaying) playMusic();
       else pauseMusic();
     });
 
-    // Intentar reproducir automáticamente al cargar la página
-    // (si el navegador lo bloquea, se quedará en silencio hasta el primer toque)
-    playMusic();
+    // 👉 Primer toque en cualquier parte de la página arranca la música
+    const handleFirstInteraction = () => {
+      if (!isPlaying) {
+        playMusic();
+      }
+      document.removeEventListener("click", handleFirstInteraction);
+      document.removeEventListener("touchstart", handleFirstInteraction);
+    };
+
+    document.addEventListener("click", handleFirstInteraction);
+    document.addEventListener("touchstart", handleFirstInteraction);
   }
 });
 // ==== Lluvia de fuego con imagen real ====
