@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Invitación - Yoselyn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Invitación mágica inspirada en princesa y sapo para la celebración de Camila Yoselyn." />
+  <!-- PREVIEW PARA WHATSAPP, FACEBOOK, MESSENGER -->
+  <meta property="og:title" content="Invitación de Camila Yoselyn | Un cuento verde y dorado ✨">
+  <meta property="og:description"
+    content="Acompáñanos a celebrar una noche mágica llena de brillo, coronas y mucha fantasía.">
+  <meta property="og:image" content="https://lauraac.github.io/princesa-y-sapo/img/mis.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lauraac.github.io/princesa-y-sapo/">
+
+  <!-- Twitter (también ayuda en WhatsApp) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Invitación de Camila Yoselyn | Un cuento mágico">
+  <meta name="twitter:description" content="Una invitación encantada para una noche inolvidable.">
+  <meta name="twitter:image" content="https://lauraac.github.io/princesa-y-sapo/img/mis.jpg">
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!--<div class="desktop-warning">
+    <div class="desktop-warning__card">
+      <h2>Invitación solo para celular 📱</h2>
+      <p>
+        Esta invitación está diseñada para verse en un teléfono en posición vertical.
+      </p>
+      <p class="desktop-warning__note">
+        Por favor ábrela desde tu celular o escanea el enlace con tu teléfono.
+      </p>
+    </div>
+  </div>-->
+  <div class="magic-stars"></div>
+  <!-- 🔊 Botón flotante de música -->
+  <button class="music-fab" id="toggleMusicBtn" aria-label="Control de música">
+    <img src="./img/musica.png" alt="Música" id="musicIcon">
+  </button>
+
+  <!-- LOADER / PORTADA DE VIDEO (para tu intro) -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-card">
+      <div class="intro-crown"><img src="./img/corona.png" alt="Corona" /></div>
+
+      <div class="intro-title-img">
+        <img src="./img/texto.gif" alt="Bienvenido al cuento de Camila">
+      </div>
+
+      <p class="intro-subtitle">
+        Toca para entrar al reino encantado
+      </p>
+
+      <div class="intro-video-wrapper">
+        <video class="intro-video" id="introVideo" autoplay muted playsinline loop>
+          <source src="./img/intro.mp4" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </div>
+
+
+
+
+      <button class="btn-primary" id="enterInvitationBtn">
+        Entrar al cuento ✨
+      </button>
+    </div>
+    <div class="magic-sparkles"></div>
+  </div>
+
+
+  <!-- FONDO GENERAL CON BRILLOS -->
+  <div class="page-background">
+    <!-- CAPA DE BRILLOS / LUCES -->
+    <div class="fireflies"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="invitation">
+
+      <!-- HERO / PORTADA PRINCIPAL -->
+      <section class="section hero" id="inicio">
+        <div class="hero-decor hero-decor--top"></div>
+
+        <!-- LUGAR PARA PNG PRINCIPAL (PRINCESA + SAPO) -->
+        <!-- Usa una imagen tipo silueta elegante, PNG transparente -->
+        <div class="hero-image-frame">
+          <img src="./img/princesa.jpg" alt="Ilustración mágica de princesa y sapo" class="hero-image" />
+          <div class="hero-glow"></div>
+        </div>
+
+
+
+        <h1 class="hero-name">
+          Mis<br />
+          XV<br />
+          <span>Camila Yoselyn</span>
+        </h1>
+
+        <p class="hero-invite">
+          Hoy que celebro mis XV años doy gracias a Dios por cada bendición
+          que ha puesto en mi vida, por mis padres que me han acompañado en
+          todos mis pasos y por cada persona especial que forma parte de mi historia.
+          Este día tan esperado por fin ha llegado y quiero compartirlo contigo,
+          para que juntos hagamos de esta noche un recuerdo inolvidable. ✨
+        </p>
+
+        <div class="hero-badge">
+          <p class="hero-badge-title">Misa de Acción de Gracias</p>
+          <p class="hero-badge-date" id="eventShortInfo">
+            14 Febrero 2029 · 7:00 PM
+          </p>
+
+          <p class="hero-badge-place">Salón · Bosques Mágico</p>
+
+        </div>
+
+        <!-- BOTONES RÁPIDOS -->
+        <div class="hero-actions">
+          <a href="#detalles" class="btn-ghost">Ver detalles</a>
+          <a href="#confirmacion" class="btn-primary">Confirmar asistencia</a>
+        </div>
+
+        <div class="hero-decor hero-decor--bottom"></div>
+      </section>
+
+      <!-- CONTADOR -->
+      <section class="section countdown-section">
+        <h2 class="section-title">Faltan para el gran día</h2>
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="count-number" id="days">00</span>
+            <span class="count-label">Días</span>
+          </div>
+          <div class="countdown-item">
+            <span class="count-number" id="hours">00</span>
+            <span class="count-label">Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span class="count-number" id="minutes">00</span>
+            <span class="count-label">Min</span>
+          </div>
+          <div class="countdown-item">
+            <span class="count-number" id="seconds">00</span>
+            <span class="count-label">Seg</span>
+          </div>
+        </div>
+        <p class="countdown-note">
+          Cada segundo nos acerca más al momento en que el cuento
+          comenzará. ✨
+        </p>
+      </section>
+      <section class="section story-section">
+        <h2 class="section-title">Hace 15 años...</h2>
+
+        <p class="story-text">
+          Hace 15 años Dios regaló a nuestra familia la vida de una niña muy especial:
+          <strong>Camila Yoselyn</strong>. Desde entonces la hemos visto crecer,
+          aprender y convertirse en un tesoro lleno de luz y alegría.
+        </p>
+
+        <p class="story-text">
+          Hoy, con el corazón lleno de gratitud, celebramos este momento que
+          tantas veces imaginamos, soñamos y esperamos. Queremos que seas parte
+          de esta noche mágica que marca el inicio de una nueva etapa en su vida.
+        </p>
+
+        <blockquote class="story-quote">
+          “Hay momentos en la vida que soñamos con el corazón; hoy, uno de esos
+          momentos ha llegado.”
+        </blockquote>
+
+        <div class="story-gif-frame">
+          <img src="./img/img1.jpg" alt="Animación de brillos mágicos" class="story-gif" />
+        </div>
+      </section>
+
+
+      <!-- DETALLES DEL EVENTO -->
+      <section class="section details-section" id="detalles">
+        <h2 class="section-title">Detalles del evento</h2>
+
+        <div class="details-grid">
+          <article class="detail-card">
+            <article class="detail-card">
+              <h3 class="detail-title">Fecha</h3>
+              <p class="detail-main">Sábado · 14 de Febrero 2029</p>
+              <p class="detail-note">Anótalo en tu calendario mágico.</p>
+            </article>
+
+            <article class="detail-card">
+              <h3 class="detail-title">Hora</h3>
+              <p class="detail-main">7:00 PM</p>
+              <p class="detail-note">Favor de llegar 15 minutos antes.</p>
+            </article>
+
+            <!-- MISA / IGLESIA -->
+            <article class="detail-card">
+              <h3 class="detail-title">Misa</h3>
+
+              <p class="detail-main">Corpus</p>
+
+              <p class="detail-note">
+                La misa comienza a las <strong>7:00 PM</strong>.<br>
+                Favor de llegar 15 minutos antes.
+              </p>
+
+              <a href="https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3427452,-98.9939234,17z/data=!4m14!1m7!3m6!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!2sParroquia+de+Corpus+Christi!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
+                target="_blank" class="detail-link">
+                Navegar con Google Maps 🌙
+              </a>
+            </article>
+
+            <article class="detail-card">
+              <h3 class="detail-title">Lugar</h3>
+              <p class="detail-main">Salón Mágico</p>
+              <p class="detail-note">
+                San Miguel Teotongo,<br>
+                Iztapalapa, C.P. 0000
+              </p>
+              <!-- BOTÓN PARA NAVEGAR EN GOOGLE MAPS -->
+              <a href="https://www.google.com/maps/place/Parroquia+de+Corpus+Christi/@19.3427452,-98.9939234,17z/data=!4m14!1m7!3m6!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!2sParroquia+de+Corpus+Christi!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml!3m5!1s0x85ce1d5e2eb66d13:0x2648b2267ff6316f!8m2!3d19.3427452!4d-98.9913485!16s%2Fg%2F11cllqk5ml?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
+                target="_blank" class="detail-link">
+                Navegar con Google Maps 🌙
+              </a>
+            </article>
+
+
+            <article class="detail-card">
+              <h3 class="detail-title">Código de vestimenta</h3>
+              <p class="detail-main">Elegante</p>
+              <p class="detail-note">
+                El color verde y dorado están reservados para la quinceañera.
+              </p>
+            </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN PARA MÚSICA -->
+      <section class="section music-section">
+        <h2 class="section-title">Melodía encantada</h2>
+        <p class="section-text">
+          Te recomendamos activar el sonido para vivir la experiencia completa.
+        </p>
+
+        <audio id="bgMusic" loop>
+          <source src="./img/princesaprincipal.mp3" type="audio/mpeg">
+          Tu navegador no soporta audio HTML5.
+        </audio>
+
+        <p class="music-note">
+          *(La música se reproducirá automáticamente al entrar al cuento.)*
+        </p>
+      </section>
+
+
+      <!-- GALERÍA / PNG / GIF -->
+      <section class="section story-gallery-section">
+        <h2 class="section-title">El cuento de Camila</h2>
+        <p class="section-text">
+          Cada princesa tiene un camino hermoso antes de llegar a su noche especial.
+          Acompáñanos a recorrer los capítulos más mágicos de su historia. ✨
+        </p>
+
+        <div class="story-gallery">
+
+          <div class="story-card">
+            <div class="story-img-frame">
+              <img src="./img/cuento5.gif" alt="Infancia de Camila">
+            </div>
+            <p class="story-caption">
+              <strong>Capítulo 1:</strong><br>
+              Cuando era pequeña, Camila soñaba con coronas, luciérnagas y un lago encantado.
+            </p>
+          </div>
+
+          <div class="story-card">
+            <div class="story-img-frame">
+              <img src="./img/cuento7.gif" alt="Sueños de princesa">
+            </div>
+            <p class="story-caption">
+              <strong>Capítulo 2:</strong><br>
+              Creció rodeada de amor, música y cuentos que alimentaron su corazón soñador.
+            </p>
+          </div>
+
+          <div class="story-card">
+            <div class="story-img-frame">
+              <img src="./img/video9.gif" alt="Momentos mágicos">
+            </div>
+            <p class="story-caption">
+              <strong>Capítulo 3:</strong><br>
+              Hoy, una joven hermosa e iluminada, lista para escribir un nuevo momento mágico.
+            </p>
+          </div>
+
+          <div class="story-card">
+            <div class="story-img-frame">
+              <img src="./img/cuento4.gif" alt="Celebración especial">
+            </div>
+            <p class="story-caption">
+              <strong>Capítulo 4:</strong><br>
+              Y este 31 de Enero de 2026… su sueño de quinceañera se hace realidad. ✨💚
+            </p>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section mom-message-section">
+        <h2 class="section-title">De mamá para Camila</h2>
+
+        <p class="section-text">
+          Mi querida hija Camila: que cada sueño que guardas en tu corazón
+          encuentre un camino para hacerse realidad. Que Dios ilumine siempre
+          tus pasos y te recuerde lo valiosa que eres.
+        </p>
+
+        <p class="section-text">
+          Me siento orgullosa de la joven en la que te has convertido y doy
+          gracias por la bendición de ser tu mamá. Hoy celebro tu vida,
+          tu alegría y este hermoso camino que apenas comienza.
+        </p>
+
+        <blockquote class="story-quote">
+          “Cuando no esté a tu lado, recuerda que mi amor te acompañará
+          en cada uno de tus sueños.” — Mamá
+        </blockquote>
+      </section>
+
+      <!-- ITINERARIO / CRONOGRAMA -->
+      <section class="section timeline-section">
+        <h2 class="section-title">Itinerario mágico</h2>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-time">7:00 PM</span>
+            <div class="timeline-content">
+              <h3>Bienvenida al reino</h3>
+              <p>Recepción de invitados y fotos en la entrada encantada.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">8:00 PM</span>
+            <div class="timeline-content">
+              <h3>Momento de la corona</h3>
+              <p>Ceremonia especial para nuestra princesa Camila.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">9:00 PM</span>
+            <div class="timeline-content">
+              <h3>Banquete en el lago</h3>
+              <p>Brindis, risas y sabores dignos de un cuento.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">10:30 PM</span>
+            <div class="timeline-content">
+              <h3>Baile bajo las estrellas</h3>
+              <p>Música, luces y magia hasta que el reloj lo permita.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <!-- MESA DE REGALOS -->
+      <!-- MESA DE REGALOS -->
+      <section class="section gifts-section">
+        <h2 class="section-title">Mesa de regalos 🎁</h2>
+        <p class="section-text">
+          Con cariño, compartimos la mesa de regalos de Camila Yoselyn.
+          Gracias por acompañarla en este capítulo tan especial. ✨
+        </p>
+
+        <div class="gifts-card">
+          <img src="./img/liverpool.png" alt="Liverpool" class="gifts-logo" />
+
+          <p class="gifts-event">
+            <strong>Número de evento:</strong> 0000
+          </p>
+
+          <p class="gifts-note">
+            Toca el botón para ver la lista:
+          </p>
+
+          <a href="https://mesaderegalos.liverpool.com.mx" target="_blank" class="btn-primary btn-full gifts-button">
+            Ir a la Mesa de Regalos 💚
+          </a>
+        </div>
+      </section>
+
+
+      <!-- SECCIÓN DE CONFIRMACIÓN -->
+      <section class="section rsvp-section" id="confirmacion">
+        <h2 class="section-title">Confirma tu asistencia</h2>
+        <p class="section-text">
+          Tu presencia es el hechizo más importante de esta noche.
+          Por favor, ayúdanos confirmando tu asistencia.
+        </p>
+
+        <form class="rsvp-form" id="rsvpForm">
+          <div class="form-group">
+            <label for="guestName">Nombre completo</label>
+            <input type="text" id="guestName" name="guestName" placeholder="Escribe tu nombre aquí" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guestCount">Número de acompañantes</label>
+            <input type="number" id="guestCount" name="guestCount" min="0" max="10" placeholder="Ej. 1, 2, 3..."
+              required />
+          </div>
+
+          <div class="form-group">
+            <p class="form-label">¿Podrás asistir?</p>
+            <div class="form-radio-group">
+              <label class="radio-pill">
+                <input type="radio" name="attendance" value="si" required />
+                <span>Sí, claro que sí ✨</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="attendance" value="no" required />
+                <span>No podré ir 💌</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Mensaje para Camila (opcional)</label>
+            <textarea id="message" name="message" rows="3"
+              placeholder="Escribe aquí un deseo, bendición o mensaje especial."></textarea>
+          </div>
+          <button type="button" class="btn-primary btn-full" onclick="sendToWhatsApp()">
+            Enviar confirmación
+          </button>
+
+
+          <!-- OPCIONAL: BOTÓN WHATSAPP/MENSAJE DIRECTO -->
+
+
+          <p class="rsvp-note">
+            *Si cambias de opinión después, puedes volver a escribirnos.*
+          </p>
+
+          <p class="rsvp-success" id="rsvpSuccessMsg">
+            <!-- Se llenará desde JS -->
+          </p>
+        </form>
+      </section>
+
+      <!-- DESPEDIDA -->
+      <section class="section farewell-section">
+        <div class="farewell-card">
+          <div class="intro-crown"><img src="./img/corona.png" alt="Corona" /></div>
+          <h2 class="farewell-title">Gracias por ser parte del cuento</h2>
+          <p class="farewell-text">
+            Cada invitado es una estrella en el cielo de Camila.
+            ¡Te esperamos para escribir juntos este capítulo inolvidable!
+          </p>
+        </div>
+      </section>
+      <footer class="footer-firma">
+        <small class="firma-texto">
+          © 2025 • Hecho por
+          <img src="./img/girasol.png" alt="LAC logo" class="icono-lac">
+          <strong>LAC</strong> — Invitaciones digitales
+        </small>
+
+        <a href="https://wa.me/525534633490?text=Hola%20Laura,%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20las%20tarjetas%20digitales."
+          target="_blank" rel="noopener noreferrer" class="wa-dragon-btn">
+          <img src="./img/whats.png" alt="WhatsApp" class="icono-whats">
+          Pide la tuya
+        </a>
+      </footer>
+    </main>
+  </div>
+
+
+</body>
+
+</html>
